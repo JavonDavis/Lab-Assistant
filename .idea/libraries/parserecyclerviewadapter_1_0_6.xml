@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="parserecyclerviewadapter-1.0.6">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.javon.parserecyclerviewadapter/parserecyclerviewadapter/1.0.6/jars/libs/Parse-1.4.1.jar!/" />
+      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.javon.parserecyclerviewadapter/parserecyclerviewadapter/1.0.6/res" />
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.javon.parserecyclerviewadapter/parserecyclerviewadapter/1.0.6/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.javon.parserecyclerviewadapter/parserecyclerviewadapter/1.0.6/8e9cb65192f1302684a3679421ea57d48be391be/parserecyclerviewadapter-1.0.6-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
