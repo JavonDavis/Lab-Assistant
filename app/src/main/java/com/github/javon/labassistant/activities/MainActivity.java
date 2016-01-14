@@ -1,25 +1,16 @@
 package com.github.javon.labassistant.activities;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.transition.Slide;
-import android.util.Log;
-import android.view.Gravity;
 
 import com.github.javon.labassistant.R;
-import com.github.javon.labassistant.classes.views.CustomViewPager;
 import com.github.javon.labassistant.fragments.CourseFragment;
 import com.github.javon.labassistant.fragments.GradeFragment;
 import com.github.javon.labassistant.fragments.IDNumberFragment;
 import com.parse.ParseObject;
 
-public class MainActivity extends AppCompatActivity implements CourseFragment.OnCourseSelectedListener,IDNumberFragment.OnIDNumberFoundListener, GradeFragment.OnGradesSavedListener {
+public class MainActivity extends AppCompatActivity implements CourseFragment.OnCourseSelectedListener,IDNumberFragment.onStudentFoundListener, GradeFragment.OnGradesSavedListener {
 
     private static final int NUM_PAGES = 3;
 
@@ -48,9 +39,9 @@ public class MainActivity extends AppCompatActivity implements CourseFragment.On
     }
 
     @Override
-    public void onCourseSelected(String courseName) {
+    public void onCourseSelected(String courseName, int labCount, String gradeTableName) {
         mCourseName = courseName;
-        idNumberFragment = IDNumberFragment.newInstance(courseName);
+        idNumberFragment = IDNumberFragment.newInstance(courseName,labCount,gradeTableName);
 
         /*
         //added a little transition
@@ -73,9 +64,10 @@ public class MainActivity extends AppCompatActivity implements CourseFragment.On
     }
 
     @Override
-    public void onIDNumberFound(String courseName, ParseObject object) {
+    public void onStudentFound(String courseName, ParseObject object, int lab_count) {
         mCourseName = courseName;
-        gradeFragment = GradeFragment.newInstance(courseName);
+        gradeFragment = GradeFragment.newInstance(courseName,lab_count);
+        gradeFragment.setmObject(object);
 
         /*
         //added a little transition
