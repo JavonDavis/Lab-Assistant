@@ -14,7 +14,7 @@ secure.xml
 bin/
 gen/
 
-.idea/*
+/.idea
 
 # Gradle files
 .gradle/
