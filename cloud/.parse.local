@@ -1,0 +1,10 @@
+{
+  "applications": {
+    "Labtech Portal": {
+      "applicationId": "drFmZuaEWh8Zt2ppLpb05G0ecUJyGoN4DnVqDSMD"
+    },
+    "_default": {
+      "link": "Labtech Portal"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.CourseFragment">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/course_list"
+        android:scrollbars="vertical"
+        tools:listitem="@layout/course_list_item"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>
