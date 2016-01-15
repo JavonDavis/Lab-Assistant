@@ -7,24 +7,24 @@
     <TextView
         android:layout_width="0dp"
         android:layout_weight="1"
-        android:layout_gravity="center"
+        android:gravity="center"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/assignment_title" />
 
-    <NumberPicker
+    <TextView
         android:layout_width="0dp"
         android:layout_weight="1"
-        android:layout_gravity="center"
+        android:gravity="center"
         android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/assignment_grade" />
 
     <TextView
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:layout_gravity="center"
+        android:gravity="center"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/assignment_marker" />
 </LinearLayout>

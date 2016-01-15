@@ -1,14 +1,17 @@
 package com.github.javon.labassistant.fragments;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.javon.labassistant.R;
+import com.parse.LogInCallback;
+import com.parse.ParseException;
+import com.parse.ParseUser;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,10 +21,34 @@ import com.github.javon.labassistant.R;
  */
 public class ProgressFragment extends Fragment {
 
+    private static final String ARG_USERNAME = "username";
+    private static final String ARG_PASSWORD = "password";
+
     private OnLoginProgressListener mListener;
+    private String mUsername;
+    private String mPassword;
+
+    public static ProgressFragment newInstance(String username,String password)
+    {
+        ProgressFragment progressFragment = new ProgressFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_USERNAME,username);
+        args.putString(ARG_PASSWORD,password);
+        progressFragment.setArguments(args);
+        return progressFragment;
+    }
 
     public ProgressFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mUsername = getArguments().getString(ARG_USERNAME);
+            mPassword = getArguments().getString(ARG_PASSWORD);
+        }
     }
 
     @Override
@@ -34,14 +61,16 @@ public class ProgressFragment extends Fragment {
     }
 
     private void attemptLogin() {
-        if(true)
-        {
-            mListener.onLoginSuccessful();
-        }
-        else
-        {
-            mListener.onLoginFailed();
-        }
+        ParseUser.logInInBackground(mUsername, mPassword, new LogInCallback() {
+            @Override
+            public void done(ParseUser user, ParseException e) {
+                if (user != null) {
+                    mListener.onLoginSuccessful();
+                } else {
+                    mListener.onLoginFailed();
+                }
+            }
+        });
     }
 
     @Override

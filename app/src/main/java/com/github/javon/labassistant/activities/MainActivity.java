@@ -1,25 +1,24 @@
 package com.github.javon.labassistant.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.github.javon.labassistant.R;
 import com.github.javon.labassistant.fragments.CourseFragment;
 import com.github.javon.labassistant.fragments.GradeFragment;
 import com.github.javon.labassistant.fragments.IDNumberFragment;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 public class MainActivity extends AppCompatActivity implements CourseFragment.OnCourseSelectedListener,IDNumberFragment.onStudentFoundListener, GradeFragment.OnGradesSavedListener {
 
-    private static final int NUM_PAGES = 3;
-
-    private String mCourseName = "";
-    private CourseFragment courseFragment;
-    private IDNumberFragment idNumberFragment;
-    private GradeFragment gradeFragment;
-    private ParseObject object;
-    private boolean overlap = false;
+    public MainActivity() {
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,20 +27,41 @@ public class MainActivity extends AppCompatActivity implements CourseFragment.On
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        courseFragment = CourseFragment.newInstance();
+        CourseFragment courseFragment = CourseFragment.newInstance();
 
         if(savedInstanceState == null)
         {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container,courseFragment)
+                    .add(R.id.container, courseFragment)
                     .commit();
         }
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.log_out:
+                ParseUser.logOut();
+                Intent intent = new Intent(this,LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
     public void onCourseSelected(String courseName, int labCount, String gradeTableName) {
-        mCourseName = courseName;
-        idNumberFragment = IDNumberFragment.newInstance(courseName,labCount,gradeTableName);
+        IDNumberFragment idNumberFragment = IDNumberFragment.newInstance(courseName, labCount, gradeTableName);
 
         /*
         //added a little transition
@@ -58,15 +78,14 @@ public class MainActivity extends AppCompatActivity implements CourseFragment.On
         }*/
 
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container,idNumberFragment)
+                .replace(R.id.container, idNumberFragment)
                 .addToBackStack("Id Number")
                 .commit();
     }
 
     @Override
     public void onStudentFound(String courseName, ParseObject object, int lab_count) {
-        mCourseName = courseName;
-        gradeFragment = GradeFragment.newInstance(courseName,lab_count);
+        GradeFragment gradeFragment = GradeFragment.newInstance(courseName, lab_count);
         gradeFragment.setmObject(object);
 
         /*
@@ -84,20 +103,13 @@ public class MainActivity extends AppCompatActivity implements CourseFragment.On
         }*/
 
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container,gradeFragment)
+                .replace(R.id.container, gradeFragment)
                 .addToBackStack("Grades")
                 .commit();
     }
 
     @Override
-    public void onGradesSaved() {
-
-    }
-
-    private interface ActivityOptions
-    {
-        int COURSE = 0;
-        int ID_NUMBER= 1;
-        int GRADES = 2;
+    public void onGradeSaved() {
+        super.onBackPressed();
     }
 }

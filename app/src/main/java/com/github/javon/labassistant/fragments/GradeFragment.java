@@ -1,7 +1,6 @@
 package com.github.javon.labassistant.fragments;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -15,8 +14,11 @@ import android.widget.Toast;
 import com.github.javon.labassistant.R;
 import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -39,7 +41,9 @@ public class GradeFragment extends Fragment {
     private NumberPicker gradePicker;
     private int mLabCount;
 
+
     private OnGradesSavedListener mListener;
+    private ParseUser labtech;
 
     public GradeFragment() {
         // Required empty public constructor
@@ -68,6 +72,9 @@ public class GradeFragment extends Fragment {
             mCourse = getArguments().getString(ARG_COURSE);
             mLabCount = getArguments().getInt(ARG_LAB_COUNT);
         }
+
+        labtech = ParseUser.getCurrentUser();
+        setRetainInstance(true);
     }
 
     @Override
@@ -80,11 +87,13 @@ public class GradeFragment extends Fragment {
         labPicker = (NumberPicker) view.findViewById(R.id.lab_number);
         gradePicker = (NumberPicker) view.findViewById(R.id.grade);
         Button saveButton = (Button) view.findViewById(R.id.save_button);
+        Button viewButton = (Button) view.findViewById(R.id.view_button);
 
         saveButton.setOnClickListener(new SaveButtonListener());
+        viewButton.setOnClickListener(new ViewButtonListener());
 
         labPicker.setMaxValue(mLabCount-1);
-        gradePicker.setMaxValue(10);
+        gradePicker.setMaxValue(MAX_GRADE);
 
         title.setText(mCourse);
 
@@ -113,10 +122,6 @@ public class GradeFragment extends Fragment {
         mListener = null;
     }
 
-    public ParseObject getmObject() {
-        return mObject;
-    }
-
     public void setmObject(ParseObject mObject) {
         this.mObject = mObject;
     }
@@ -132,7 +137,7 @@ public class GradeFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnGradesSavedListener {
-        void onGradesSaved();
+        void onGradeSaved();
     }
 
     // Listener to save grades to parse
@@ -147,13 +152,18 @@ public class GradeFragment extends Fragment {
             final int final_grade = grade*10;
 
             String lab_field = String.format(Locale.ENGLISH,"lab_%d",lab_number);
+            String marker_field = String.format(Locale.ENGLISH,"%s_marker",lab_field);
             mObject.put(lab_field,final_grade);
+
+            //current user name goes here
+            mObject.put(marker_field,labtech.getString("name"));
             mObject.saveInBackground(new SaveCallback() {
                 @Override
                 public void done(ParseException e) {
                     if(e == null)
                     {
                         Toast.makeText(getActivity(),"Grade Saved",Toast.LENGTH_LONG).show();
+                        mListener.onGradeSaved();
                     }
                     else
                     {
@@ -161,6 +171,35 @@ public class GradeFragment extends Fragment {
                     }
                 }
             });
+        }
+    }
+
+    private class ViewButtonListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            GradesDialogFragment gradesDialogFragment = new GradesDialogFragment();
+            List<GradesDialogFragment.GradeItem> gradeItems = new ArrayList<>();
+
+            for(int labNumber = 0; labNumber<mLabCount; labNumber++)
+            {
+                String title = String.format(Locale.ENGLISH,"Lab %d",labNumber);
+                String lab_field = String.format(Locale.ENGLISH,"lab_%d",labNumber);
+
+                Object gradeObject = mObject.get(lab_field);
+                if(gradeObject != null)
+                {
+                    Integer grade = (Integer) gradeObject;
+                    String marker_field = String.format(Locale.ENGLISH,"%s_marker",lab_field);
+                    String marker = mObject.getString(marker_field);
+                    GradesDialogFragment.GradeItem item = new GradesDialogFragment.GradeItem();
+                    item.title = title;
+                    item.grade = grade;
+                    item.marker = marker;
+                    gradeItems.add(item);
+                }
+            }
+            gradesDialogFragment.setGrades(gradeItems);
+            gradesDialogFragment.show(getActivity().getSupportFragmentManager(), "Grades Dialog");
         }
     }
 }

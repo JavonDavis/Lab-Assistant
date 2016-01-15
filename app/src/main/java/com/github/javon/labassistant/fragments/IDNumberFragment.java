@@ -69,6 +69,7 @@ public class IDNumberFragment extends Fragment {
             mGradeTableName = getArguments().getString(ARG_GRADE_TABLE);
             mLabCount = getArguments().getInt(ARG_LAB_COUNT);
         }
+        setRetainInstance(true);
     }
 
     @Override

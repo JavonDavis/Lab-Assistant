@@ -15,4 +15,5 @@
     <string name="grade">Grade:</string>
     <string name="save">Save</string>
     <string name="view_grades">View Grades</string>
+    <string name="log_out">Log out</string>
 </resources>
