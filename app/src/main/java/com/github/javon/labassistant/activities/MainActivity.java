@@ -1,8 +1,8 @@
 package com.github.javon.labassistant.activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,7 +15,9 @@ import com.github.javon.labassistant.fragments.IDNumberFragment;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
-public class MainActivity extends AppCompatActivity implements CourseFragment.OnCourseSelectedListener,IDNumberFragment.onStudentFoundListener, GradeFragment.OnGradesSavedListener {
+public class MainActivity extends AppCompatActivity implements CourseFragment.OnCourseSelectedListener,
+        IDNumberFragment.onStudentFoundListener, GradeFragment.OnGradesSavedListener {
+
 
     public MainActivity() {
     }
@@ -112,4 +114,5 @@ public class MainActivity extends AppCompatActivity implements CourseFragment.On
     public void onGradeSaved() {
         super.onBackPressed();
     }
+
 }

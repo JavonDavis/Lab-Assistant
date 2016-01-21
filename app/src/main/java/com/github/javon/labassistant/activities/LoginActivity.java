@@ -10,7 +10,8 @@ import com.github.javon.labassistant.fragments.LoginFragment;
 import com.github.javon.labassistant.fragments.ProgressFragment;
 import com.parse.ParseUser;
 
-public class LoginActivity extends AppCompatActivity implements LoginFragment.OnLoginAttemptedListener, ProgressFragment.OnLoginProgressListener {
+public class LoginActivity extends AppCompatActivity implements LoginFragment.OnLoginAttemptedListener,
+        ProgressFragment.OnLoginProgressListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,20 +19,29 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.On
         setContentView(R.layout.activity_login);
 
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.container,LoginFragment.newInstance())
+                .add(R.id.container,LoginFragment.newInstance("",""))
                 .commit();
 
         ParseUser currentUser = ParseUser.getCurrentUser();
         if (currentUser != null) {
-            onLoginSuccessful();
+                onLoginSuccessful();
         }
+    }
+
+    protected void onStart() {
+        super.onStart();
+    }
+
+    protected void onStop() {
+        super.onStop();
     }
 
     @Override
     public void onLoginAttempted(String username, String password) {
         //animations can be done here
+
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, ProgressFragment.newInstance(username,password))
+                .replace(R.id.container, ProgressFragment.newInstance(username, password))
                 .commit();
     }
 
@@ -48,7 +58,7 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.On
     public void onLoginFailed() {
         Toast.makeText(this,"Invalid Username or password",Toast.LENGTH_LONG).show();
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container,LoginFragment.newInstance())
+                .replace(R.id.container,LoginFragment.newInstance("",""))
                 .commit();
     }
 }
