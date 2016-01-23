@@ -1,5 +1,7 @@
 package com.github.javon.labassistant.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,12 +14,15 @@ import com.github.javon.labassistant.R;
 import com.github.javon.labassistant.fragments.CourseFragment;
 import com.github.javon.labassistant.fragments.GradeFragment;
 import com.github.javon.labassistant.fragments.IDNumberFragment;
+import com.github.javon.labassistant.fragments.dialogs.AddStudentDialogFragment;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 public class MainActivity extends AppCompatActivity implements CourseFragment.OnCourseSelectedListener,
         IDNumberFragment.onStudentFoundListener, GradeFragment.OnGradesSavedListener {
 
+    private static final String ARG_ID = "id";
+    private static final String ARG_TABLE = "table";
 
     public MainActivity() {
     }
@@ -108,6 +113,33 @@ public class MainActivity extends AppCompatActivity implements CourseFragment.On
                 .replace(R.id.container, gradeFragment)
                 .addToBackStack("Grades")
                 .commit();
+    }
+
+    @Override
+    public void onStudentNotFound(String coursename, final String idNumber, final String tableName) {
+        new AlertDialog.Builder(this)
+                .setTitle("Student not found")
+                .setMessage("Student not found in database. This is because student was no" +
+                        "t enrolled for"+coursename+" at the last time of population of the database. Would " +
+                        "you like to manually add the student for now?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        AddStudentDialogFragment addDialog = new AddStudentDialogFragment();
+                        Bundle args = new Bundle();
+                        args.putString(ARG_ID,idNumber);
+                        args.putString(ARG_TABLE,tableName);
+                        addDialog.setArguments(args);
+                        addDialog.show(getSupportFragmentManager(),"Add Student");
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                })
+                .show();
     }
 
     @Override

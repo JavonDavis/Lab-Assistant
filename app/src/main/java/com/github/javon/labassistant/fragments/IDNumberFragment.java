@@ -111,7 +111,7 @@ public class IDNumberFragment extends Fragment {
                     {
                         Log.d("Student not found",idNumber+" not found in "+mGradeTableName+" table");
                         Toast.makeText(getActivity(),"Student "+idNumber+" Not found",Toast.LENGTH_LONG).show();
-
+                        mListener.onStudentNotFound(mCourse,idNumber,mGradeTableName);
                     }
                     else
                     {
@@ -154,5 +154,6 @@ public class IDNumberFragment extends Fragment {
      */
     public interface onStudentFoundListener {
         void onStudentFound(String coursename, ParseObject object, int labCount);
+        void onStudentNotFound(String coursename, String id, String tableName);
     }
 }
