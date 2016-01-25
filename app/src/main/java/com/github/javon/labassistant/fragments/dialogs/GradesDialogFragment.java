@@ -1,4 +1,4 @@
-package com.github.javon.labassistant.fragments;
+package com.github.javon.labassistant.fragments.dialogs;
 
 
 import android.app.Dialog;

@@ -1,8 +1,10 @@
 package com.github.javon.labassistant.fragments;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.javon.labassistant.R;
+import com.github.javon.labassistant.fragments.dialogs.GradesDialogFragment;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
@@ -146,31 +149,43 @@ public class GradeFragment extends Fragment {
 
         @Override
         public void onClick(View v) {
-            int lab_number = labPicker.getValue();
-            int grade = gradePicker.getValue();
+            final boolean[] isSure = {false};
 
-            final int final_grade = grade*10;
+            new AlertDialog.Builder(getActivity())
+                    .setTitle("Save?")
+                    .setMessage("Are you sure you want to save this grade?")
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            isSure[0] = true;
+                        }
+                    })
+                    .show();
 
-            String lab_field = String.format(Locale.ENGLISH,"lab_%d",lab_number);
-            String marker_field = String.format(Locale.ENGLISH,"%s_marker",lab_field);
-            mObject.put(lab_field,final_grade);
+            if (isSure[0]) {
+                int lab_number = labPicker.getValue();
+                int grade = gradePicker.getValue();
 
-            //current user name goes here
-            mObject.put(marker_field,labtech.getString("name"));
-            mObject.saveInBackground(new SaveCallback() {
-                @Override
-                public void done(ParseException e) {
-                    if(e == null)
-                    {
-                        Toast.makeText(getActivity(),"Grade Saved",Toast.LENGTH_LONG).show();
-                        mListener.onGradeSaved();
+                final int final_grade = grade * 10;
+
+                String lab_field = String.format(Locale.ENGLISH, "lab_%d", lab_number);
+                String marker_field = String.format(Locale.ENGLISH, "%s_marker", lab_field);
+                mObject.put(lab_field, final_grade);
+
+                //current user name goes here
+                mObject.put(marker_field, labtech.getString("name"));
+                mObject.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if (e == null) {
+                            Toast.makeText(getActivity(), "Grade Saved", Toast.LENGTH_LONG).show();
+                            mListener.onGradeSaved();
+                        } else {
+                            Toast.makeText(getActivity(), "Error saving grade:" + e.getCode(), Toast.LENGTH_LONG).show();
+                        }
                     }
-                    else
-                    {
-                        Toast.makeText(getActivity(),"Error saving grade:"+e.getCode(),Toast.LENGTH_LONG).show();
-                    }
-                }
-            });
+                });
+            }
         }
     }
 

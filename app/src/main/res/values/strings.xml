@@ -17,6 +17,7 @@
     <string name="view_grades">View Grades</string>
     <string name="log_out">Log out</string>
 
+<<<<<<< HEAD
     <string-array name="lab_array">
         <item>0</item>
         <item>1</item>
@@ -45,4 +46,24 @@
         <item>COMP1127</item>
         <item>COMP1161</item>
     </string-array>
+=======
+    <!-- Error Strings -->
+    <string name="not_connected">GoogleApiClient no yet connected. Try again.</string>
+    <string name="geofence_not_available">Geofence service is not available now</string>
+    <string name="geofence_too_many_geofences">Your app has registered too many geofences</string>
+    <string name="geofence_too_many_pending_intents">
+        You have provided too many PendingIntents to the addGeofences() call
+    </string>
+    <string name="unknown_geofence_error">
+        Unknown error: the Geofence service is not available now
+    </string>
+    <string name="geofence_transition_invalid_type">
+        Geofence transition error: invalid transition type %1$d
+    </string>
+
+    <!-- Transition type strings -->
+    <string name="geofence_transition_entered">Entered</string>
+    <string name="geofence_transition_exited">Exited</string>
+    <string name="unknown_geofence_transition">Unknown Transition</string>
+>>>>>>> dd58d7e59c3846e6df8d48d2d144117795b65df2
 </resources>

@@ -14,11 +14,16 @@ import com.github.javon.labassistant.fragments.LoginFragment;
 import com.github.javon.labassistant.fragments.ProgressFragment;
 import com.parse.ParseUser;
 
+<<<<<<< HEAD
 public class LoginActivity extends AppCompatActivity
         implements LoginFragment.OnLoginAttemptedListener, ProgressFragment.OnLoginProgressListener,
         OfflineDialogFragment.OfflineDialogListener {
 
     OfflineDialogFragment dialog = null;
+=======
+public class LoginActivity extends AppCompatActivity implements LoginFragment.OnLoginAttemptedListener,
+        ProgressFragment.OnLoginProgressListener {
+>>>>>>> dd58d7e59c3846e6df8d48d2d144117795b65df2
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,20 +41,29 @@ public class LoginActivity extends AppCompatActivity
         });
 
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.container,LoginFragment.newInstance())
+                .add(R.id.container,LoginFragment.newInstance("",""))
                 .commit();
 
         ParseUser currentUser = ParseUser.getCurrentUser();
         if (currentUser != null) {
-            onLoginSuccessful();
+                onLoginSuccessful();
         }
+    }
+
+    protected void onStart() {
+        super.onStart();
+    }
+
+    protected void onStop() {
+        super.onStop();
     }
 
     @Override
     public void onLoginAttempted(String username, String password) {
         //animations can be done here
+
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, ProgressFragment.newInstance(username,password))
+                .replace(R.id.container, ProgressFragment.newInstance(username, password))
                 .commit();
     }
 
@@ -71,7 +85,7 @@ public class LoginActivity extends AppCompatActivity
     public void onLoginFailed() {
         Toast.makeText(this,"Invalid Username or password",Toast.LENGTH_LONG).show();
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container,LoginFragment.newInstance())
+                .replace(R.id.container,LoginFragment.newInstance("",""))
                 .commit();
     }
 
