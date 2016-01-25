@@ -35,6 +35,5 @@
             android:text="@string/log_in"
             android:id="@+id/loginButton" />
 
-
     </LinearLayout>
 </android.support.v7.widget.CardView>

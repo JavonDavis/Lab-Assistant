@@ -78,6 +78,7 @@ public class LoginFragment extends Fragment {
         final EditText usernameField = (EditText) view.findViewById(R.id.username);
         final EditText passwordField = (EditText) view.findViewById(R.id.password);
         Button loginButton = (Button) view.findViewById(R.id.loginButton);
+        Button offlineSave = (Button) view.findViewById(R.id.offlineSave);
 
         usernameField.setText(mUsername);
         passwordField.setText(mPassword);
@@ -88,17 +89,15 @@ public class LoginFragment extends Fragment {
                 String username = usernameField.getText().toString();
                 String password = passwordField.getText().toString();
 
-                if(username.isEmpty() || password.isEmpty())
-                {
-                    Toast.makeText(getActivity(),"Both username and password must be entered",Toast.LENGTH_LONG).show();
-                }
-                else
-                {
-                    mListener.onLoginAttempted(username,password);
+                if (username.isEmpty() || password.isEmpty()) {
+                    Toast.makeText(getActivity(), "Both username and password must be entered", Toast.LENGTH_LONG).show();
+                } else {
+                    mListener.onLoginAttempted(username, password);
                 }
 
             }
         });
+
 
         return view;
     }
@@ -132,5 +131,6 @@ public class LoginFragment extends Fragment {
      */
     public interface OnLoginAttemptedListener {
         void onLoginAttempted(String username, String password);
+        void onOfflineSaveAttempt();
     }
 }

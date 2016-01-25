@@ -3,19 +3,37 @@ package com.github.javon.labassistant.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
+import com.github.javon.labassistant.OfflineGrade;
 import com.github.javon.labassistant.R;
+import com.github.javon.labassistant.dialogs.OfflineDialogFragment;
 import com.github.javon.labassistant.fragments.LoginFragment;
 import com.github.javon.labassistant.fragments.ProgressFragment;
 import com.parse.ParseUser;
 
-public class LoginActivity extends AppCompatActivity implements LoginFragment.OnLoginAttemptedListener, ProgressFragment.OnLoginProgressListener {
+public class LoginActivity extends AppCompatActivity
+        implements LoginFragment.OnLoginAttemptedListener, ProgressFragment.OnLoginProgressListener,
+        OfflineDialogFragment.OfflineDialogListener {
+
+    OfflineDialogFragment dialog = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        Button offlineBtn = (Button) findViewById(R.id.offlineSave);
+
+        offlineBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OfflineDialogFragment fragment = new OfflineDialogFragment();
+                fragment.show(getSupportFragmentManager(), "offline_save");
+            }
+        });
 
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.container,LoginFragment.newInstance())
@@ -35,6 +53,11 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.On
                 .commit();
     }
 
+    @Override
+    public void onOfflineSaveAttempt() {
+
+    }
+
 
     @Override
     public void onLoginSuccessful() {
@@ -50,5 +73,16 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.On
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container,LoginFragment.newInstance())
                 .commit();
+    }
+
+    @Override
+    public void onDialogNegativeClick() {
+
+    }
+
+    @Override
+    public void onDialogPositiveClick(String id, String course, String grade, String lab) {
+        OfflineGrade offlineGrade = new OfflineGrade(id, course, grade, lab);
+        offlineGrade.save();
     }
 }
