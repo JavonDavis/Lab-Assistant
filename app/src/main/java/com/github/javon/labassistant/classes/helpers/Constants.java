@@ -1,6 +1,9 @@
-package com.github.javon.labassistant.classes;
+package com.github.javon.labassistant.classes.helpers;
 
+import android.content.Context;
 import android.location.Location;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -43,5 +46,12 @@ public final class Constants {
         // Upstairs Computer Lab
         //TODO - get correct upstairs Latitude and longitude
        // LAB_LOCATIONS.put("Upstairs", UPSTAIRS_LAB_LOCATION);
+    }
+
+    public static boolean isNetworkAvailable(Context context) {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }

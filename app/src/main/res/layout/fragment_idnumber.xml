@@ -32,36 +32,25 @@
                 android:layout_height="match_parent">
 
                 <com.github.javon.labassistant.classes.helpers.barcode.GraphicOverlay
-                    android:id="@+id/faceOverlay"
+                    android:id="@+id/overlay"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     />
 
             </com.github.javon.labassistant.classes.helpers.barcode.CameraSourcePreview>
         </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/or"
-            android:layout_marginTop="68dp"
-            android:id="@+id/textView" />
-
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/id_number"
             android:inputType="number"
             android:ems="10"
-            android:id="@+id/id_number"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="65dp" />
+            android:id="@+id/id_number"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/enter_manually"
+            android:text="@string/enter"
             android:id="@+id/manual"
             android:layout_gravity="center_horizontal" />
 

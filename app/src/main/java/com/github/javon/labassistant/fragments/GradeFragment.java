@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -149,43 +150,43 @@ public class GradeFragment extends Fragment {
 
         @Override
         public void onClick(View v) {
-            final boolean[] isSure = {false};
-
             new AlertDialog.Builder(getActivity())
                     .setTitle("Save?")
                     .setMessage("Are you sure you want to save this grade?")
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            isSure[0] = true;
+                            int lab_number = labPicker.getValue();
+                            int grade = gradePicker.getValue();
+
+                            final int final_grade = grade * 10;
+
+                            String lab_field = String.format(Locale.ENGLISH, "lab_%d", lab_number);
+                            String marker_field = String.format(Locale.ENGLISH, "%s_marker", lab_field);
+                            mObject.put(lab_field, final_grade);
+
+                            //current user name goes here
+                            mObject.put(marker_field, labtech.getString("name"));
+                            mObject.saveInBackground(new SaveCallback() {
+                                @Override
+                                public void done(ParseException e) {
+                                    if (e == null) {
+                                        new AlertDialog.Builder(getActivity())
+                                                .setTitle(labtech.getString("name"))
+                                                .setMessage("Grade Saved")
+                                                .setPositiveButton("OK",null);
+                                        mListener.onGradeSaved();
+                                    } else {
+                                        new AlertDialog.Builder(getActivity())
+                                                .setTitle(labtech.getString("name"))
+                                                .setMessage(TextUtils.concat("Error saving grade:",Integer.toString(e.getCode())))
+                                                .setPositiveButton("OK",null);
+                                    }
+                                }
+                            });
                         }
                     })
                     .show();
-
-            if (isSure[0]) {
-                int lab_number = labPicker.getValue();
-                int grade = gradePicker.getValue();
-
-                final int final_grade = grade * 10;
-
-                String lab_field = String.format(Locale.ENGLISH, "lab_%d", lab_number);
-                String marker_field = String.format(Locale.ENGLISH, "%s_marker", lab_field);
-                mObject.put(lab_field, final_grade);
-
-                //current user name goes here
-                mObject.put(marker_field, labtech.getString("name"));
-                mObject.saveInBackground(new SaveCallback() {
-                    @Override
-                    public void done(ParseException e) {
-                        if (e == null) {
-                            Toast.makeText(getActivity(), "Grade Saved", Toast.LENGTH_LONG).show();
-                            mListener.onGradeSaved();
-                        } else {
-                            Toast.makeText(getActivity(), "Error saving grade:" + e.getCode(), Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
-            }
         }
     }
 

@@ -6,17 +6,26 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.github.javon.labassistant.R;
+import com.github.javon.labassistant.classes.helpers.Constants;
 import com.github.javon.labassistant.fragments.CourseFragment;
 import com.github.javon.labassistant.fragments.GradeFragment;
 import com.github.javon.labassistant.fragments.IDNumberFragment;
 import com.github.javon.labassistant.fragments.dialogs.AddStudentDialogFragment;
+import com.google.android.gms.vision.barcode.Barcode;
+import com.parse.CountCallback;
+import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.codec.binary.StringUtils;
 
 public class MainActivity extends AppCompatActivity implements CourseFragment.OnCourseSelectedListener,
         IDNumberFragment.onStudentFoundListener, GradeFragment.OnGradesSavedListener {
@@ -84,10 +93,18 @@ public class MainActivity extends AppCompatActivity implements CourseFragment.On
             courseFragment.setAllowReturnTransitionOverlap(overlap);
         }*/
 
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, idNumberFragment)
-                .addToBackStack("Id Number")
-                .commit();
+        if(Constants.isNetworkAvailable(this)) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container, idNumberFragment)
+                    .addToBackStack("Id Number")
+                    .commit();
+        }
+        else
+        {
+            Toast.makeText(this,"No network Connection",Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(this,LoginActivity.class);
+            startActivity(intent);
+        }
     }
 
     @Override
@@ -109,18 +126,26 @@ public class MainActivity extends AppCompatActivity implements CourseFragment.On
             idNumberFragment.setAllowReturnTransitionOverlap(overlap);
         }*/
 
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, gradeFragment)
-                .addToBackStack("Grades")
-                .commit();
+        if(Constants.isNetworkAvailable(this)) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container, gradeFragment)
+                    .addToBackStack("Grades")
+                    .commit();
+        }
+        else
+        {
+            Toast.makeText(this,"No network Connection",Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(this,LoginActivity.class);
+            startActivity(intent);
+        }
     }
 
     @Override
-    public void onStudentNotFound(String coursename, final String idNumber, final String tableName) {
+    public void onStudentNotFound(String courseName, final String idNumber, final String tableName) {
         new AlertDialog.Builder(this)
                 .setTitle("Student not found")
                 .setMessage("Student not found in database. This is because student was no" +
-                        "t enrolled for"+coursename+" at the last time of population of the database. Would " +
+                        "t enrolled for"+ courseName +" at the last time of population of the database. Would " +
                         "you like to manually add the student for now?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
@@ -144,7 +169,14 @@ public class MainActivity extends AppCompatActivity implements CourseFragment.On
 
     @Override
     public void onGradeSaved() {
-        super.onBackPressed();
+        if(Constants.isNetworkAvailable(this)) {
+            super.onBackPressed();
+        }
+        else
+        {
+            Toast.makeText(this,"No network Connection",Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(this,LoginActivity.class);
+            startActivity(intent);
+        }
     }
-
 }

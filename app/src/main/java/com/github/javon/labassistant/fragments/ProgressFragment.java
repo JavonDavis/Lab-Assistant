@@ -67,7 +67,7 @@ public class ProgressFragment extends Fragment {
                 if (user != null) {
                     mListener.onLoginSuccessful();
                 } else {
-                    mListener.onLoginFailed();
+                    mListener.onLoginFailed(e.getCode());
                 }
             }
         });
@@ -102,6 +102,6 @@ public class ProgressFragment extends Fragment {
      */
     public interface OnLoginProgressListener {
         void onLoginSuccessful();
-        void onLoginFailed();
+        void onLoginFailed(int code);
     }
 }

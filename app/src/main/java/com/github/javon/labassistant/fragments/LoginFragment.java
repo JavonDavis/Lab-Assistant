@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.javon.labassistant.R;
@@ -68,6 +69,14 @@ public class LoginFragment extends Fragment {
         final EditText passwordField = (EditText) view.findViewById(R.id.password);
         Button loginButton = (Button) view.findViewById(R.id.loginButton);
 
+        TextView offlineView = (TextView) view.findViewById(R.id.offlineTextView);
+
+        offlineView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.onOfflineGradeClick();
+            }
+        });
         usernameField.setText(mUsername);
         passwordField.setText(mPassword);
 
@@ -121,5 +130,6 @@ public class LoginFragment extends Fragment {
      */
     public interface OnLoginAttemptedListener {
         void onLoginAttempted(String username, String password);
+        void onOfflineGradeClick();
     }
 }
