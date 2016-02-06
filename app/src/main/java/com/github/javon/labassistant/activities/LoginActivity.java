@@ -14,6 +14,7 @@ import com.github.javon.labassistant.fragments.LoginFragment;
 import com.github.javon.labassistant.fragments.ProgressFragment;
 import com.parse.ParseUser;
 
+
 public class LoginActivity extends AppCompatActivity
         implements LoginFragment.OnLoginAttemptedListener, ProgressFragment.OnLoginProgressListener,
         OfflineDialogFragment.OfflineDialogListener {
