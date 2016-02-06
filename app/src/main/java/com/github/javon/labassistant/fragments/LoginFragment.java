@@ -67,7 +67,7 @@ public class LoginFragment extends Fragment {
         final EditText usernameField = (EditText) view.findViewById(R.id.username);
         final EditText passwordField = (EditText) view.findViewById(R.id.password);
         Button loginButton = (Button) view.findViewById(R.id.loginButton);
-        Button offlineSave = (Button) view.findViewById(R.id.offlineSave);
+        Button offlineSave = (Button) view.findViewById(R.id.offlineButton);
 
         usernameField.setText(mUsername);
         passwordField.setText(mPassword);
@@ -83,7 +83,13 @@ public class LoginFragment extends Fragment {
                 } else {
                     mListener.onLoginAttempted(username, password);
                 }
+            }
+        });
 
+        offlineSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.onOfflineSaveAttempt();
             }
         });
 

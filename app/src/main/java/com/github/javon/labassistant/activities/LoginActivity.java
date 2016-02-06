@@ -14,16 +14,11 @@ import com.github.javon.labassistant.fragments.LoginFragment;
 import com.github.javon.labassistant.fragments.ProgressFragment;
 import com.parse.ParseUser;
 
-<<<<<<< HEAD
 public class LoginActivity extends AppCompatActivity
         implements LoginFragment.OnLoginAttemptedListener, ProgressFragment.OnLoginProgressListener,
         OfflineDialogFragment.OfflineDialogListener {
 
     OfflineDialogFragment dialog = null;
-=======
-public class LoginActivity extends AppCompatActivity implements LoginFragment.OnLoginAttemptedListener,
-        ProgressFragment.OnLoginProgressListener {
->>>>>>> dd58d7e59c3846e6df8d48d2d144117795b65df2
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +64,7 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.On
 
     @Override
     public void onOfflineSaveAttempt() {
-
+        
     }
 
 

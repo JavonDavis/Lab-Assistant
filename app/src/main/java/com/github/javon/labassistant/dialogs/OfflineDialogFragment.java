@@ -15,14 +15,9 @@ import android.widget.Spinner;
 
 import com.github.javon.labassistant.R;
 
-/**
- * Created by shane on 1/25/16.
- */
 public class OfflineDialogFragment extends DialogFragment{
 
     OfflineDialogListener mListener;
-
-
 
     @NonNull
     @Override

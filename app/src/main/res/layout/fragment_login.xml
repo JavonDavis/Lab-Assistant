@@ -35,5 +35,11 @@
             android:text="@string/log_in"
             android:id="@+id/loginButton" />
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/save_offline"
+            android:id="@+id/offlineButton" />
+
     </LinearLayout>
 </android.support.v7.widget.CardView>
