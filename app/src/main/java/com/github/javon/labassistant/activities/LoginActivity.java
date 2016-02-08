@@ -3,12 +3,12 @@ package com.github.javon.labassistant.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.github.javon.labassistant.OfflineGrade;
 import com.github.javon.labassistant.R;
+import com.github.javon.labassistant.Session;
 import com.github.javon.labassistant.dialogs.OfflineDialogFragment;
 import com.github.javon.labassistant.fragments.LoginFragment;
 import com.github.javon.labassistant.fragments.ProgressFragment;
@@ -29,12 +29,9 @@ public class LoginActivity extends AppCompatActivity
 
         Button offlineBtn = (Button) findViewById(R.id.offlineSave);
 
-        offlineBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                OfflineDialogFragment fragment = new OfflineDialogFragment();
-                fragment.show(getSupportFragmentManager(), "offline_save");
-            }
+        offlineBtn.setOnClickListener(v -> {
+            OfflineDialogFragment fragment = new OfflineDialogFragment();
+            fragment.show(getSupportFragmentManager(), "offline_save");
         });
 
         getSupportFragmentManager().beginTransaction()
@@ -67,6 +64,24 @@ public class LoginActivity extends AppCompatActivity
     @Override
     public void onOfflineSaveAttempt() {
         
+    }
+
+    /**
+     * Defers login but uses saves the user's credentials and attempts
+     * to verify it on Parse when a connection becomes available
+     *
+     * @param username
+     * @param password
+     */
+    @Override
+    public void onOfflineConnectAttempt(String username, String password) {
+        Session session = new Session(this);
+
+        session.setUsername(username);
+        session.setPassword(password);
+        session.setLoggedIn(false);
+
+        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
     }
 
 

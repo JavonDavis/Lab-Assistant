@@ -1,7 +1,6 @@
 package com.github.javon.labassistant;
 
-import android.app.Application;
-
+import com.orm.SugarApp;
 import com.parse.Parse;
 import com.parse.ParseInstallation;
 
@@ -9,7 +8,7 @@ import com.parse.ParseInstallation;
  * @author Javon Davis
  *         Created by Javon Davis on 7/29/15.
  */
-public class App extends Application{
+public class App extends SugarApp{
 
     @Override
     public void onCreate() {
