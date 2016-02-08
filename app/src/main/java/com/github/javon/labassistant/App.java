@@ -20,9 +20,10 @@ public class App extends Application{
         String clientId = getResources().getString(R.string.client_id);
 
         // Enable Local Datastore.
-        //Parse.enableLocalDatastore(this);
 
         Parse.initialize(this, appId, clientId);
+//        Parse.enableLocalDatastore(this);
+
         ParseInstallation.getCurrentInstallation().saveInBackground();
 
     }
