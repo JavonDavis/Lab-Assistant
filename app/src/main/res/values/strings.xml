@@ -65,5 +65,7 @@
     <string name="unknown_geofence_transition">Unknown Transition</string>
     <string name="save_offline">Save Offline</string>
     <string name="title_activity_home">HomeActivity</string>
+    <string name="logout">Logout</string>
+    <string name="cancel">Cancel</string>
 </resources>
 

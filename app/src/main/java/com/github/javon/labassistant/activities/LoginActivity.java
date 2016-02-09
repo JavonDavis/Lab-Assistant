@@ -3,7 +3,6 @@ package com.github.javon.labassistant.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.github.javon.labassistant.OfflineGrade;
@@ -27,12 +26,12 @@ public class LoginActivity extends AppCompatActivity
 
         setContentView(R.layout.activity_login);
 
-        Button offlineBtn = (Button) findViewById(R.id.offlineSave);
+//        Button offlineBtn = (Button) findViewById(R.id.offlineSave);
 
-        offlineBtn.setOnClickListener(v -> {
-            OfflineDialogFragment fragment = new OfflineDialogFragment();
-            fragment.show(getSupportFragmentManager(), "offline_save");
-        });
+//        offlineBtn.setOnClickListener(v -> {
+//            OfflineDialogFragment fragment = new OfflineDialogFragment();
+//            fragment.show(getSupportFragmentManager(), "offline_save");
+//        });
 
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.container,LoginFragment.newInstance("",""))

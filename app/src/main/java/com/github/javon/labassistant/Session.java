@@ -9,6 +9,10 @@ import android.preference.PreferenceManager;
  */
 public class Session {
 
+    private final static String KEY_USERNAME = "username";
+    private final static String KEY_PASSWORD = "password";
+    private final static String KEY_LOGGED_IN = "loggedIn";
+
     private SharedPreferences prefs;
 
     public Session(Context context) {
@@ -16,23 +20,31 @@ public class Session {
     }
 
     public void setUsername(String username) {
-        save("username", username);
+        save(KEY_USERNAME, username);
     }
 
     public void setPassword(String password) {
-        save("password", password);
+        save(KEY_PASSWORD, password);
     }
 
     public void setLoggedIn(boolean isLoggedIn) {
-        save("loggedIn", isLoggedIn);
+        save(KEY_LOGGED_IN, isLoggedIn);
     }
 
     public String getUsername() {
-        return retrieveString("username");
+        return retrieveString(KEY_USERNAME);
     }
 
     public String getPassword() {
-        return retrieveString("password");
+        return retrieveString(KEY_PASSWORD);
+    }
+
+    public boolean isLoggedIn() {
+        return retrieveBoolean(KEY_LOGGED_IN);
+    }
+
+    public void logout() {
+        prefs.edit().clear().apply();
     }
 
     private void save(String label, String content) {
