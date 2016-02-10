@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
-import com.github.javon.labassistant.OfflineGrade;
 import com.github.javon.labassistant.R;
 import com.github.javon.labassistant.Session;
 import com.github.javon.labassistant.dialogs.OfflineDialogFragment;
@@ -54,7 +53,6 @@ public class LoginActivity extends AppCompatActivity
     @Override
     public void onLoginAttempted(String username, String password) {
         //animations can be done here
-
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container, ProgressFragment.newInstance(username, password))
                 .commit();
@@ -107,7 +105,7 @@ public class LoginActivity extends AppCompatActivity
 
     @Override
     public void onDialogPositiveClick(String id, String course, String grade, String lab) {
-        OfflineGrade offlineGrade = new OfflineGrade(id, course, grade, lab);
-        offlineGrade.save();
+//        OfflineGrade offlineGrade = new OfflineGrade(id, course, grade, lab);
+//        offlineGrade.save();
     }
 }

@@ -27,28 +27,19 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <meta-data
-            android:name="DATABASE"
-            android:value="lab_tech.db" />
-        <meta-data
-            android:name="VERSION"
-            android:value="1" />
-        <meta-data
-            android:name="QUERY_LOG"
-            android:value="true" />
-        <meta-data
-            android:name="DOMAIN_PACKAGE_NAME"
-            android:value="com.github.javon.labassistant" />
 
         <!-- Activities -->
-        <activity android:name=".activities.LoginActivity">
+        <activity android:name=".activities.LoginActivity"
+            android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.MainActivity"></activity>
+        <activity android:name=".activities.MainActivity">
+
+        </activity>
 
         <!-- Services -->
         <service android:name=".classes.geolocation.GeofenceTransitionsIntentService" />
@@ -63,11 +54,7 @@
         <activity
             android:name=".activities.HomeActivity"
             android:label="Grades"
-            android:parentActivityName=".activities.LoginActivity"
             android:theme="@style/AppTheme">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.github.javon.labassistant.activities.LoginActivity" />
         </activity>
 
         <service android:name="com.parse.PushService" />

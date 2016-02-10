@@ -10,10 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.javon.labassistant.R;
-import com.github.javon.labassistant.classes.helpers.RecyclerItemClickListener;
-import com.github.javon.labassistant.classes.holders.CourseViewHolder;
-import com.javon.parserecyclerviewadapter.ParseRecyclerQueryAdapter;
-import com.parse.ParseObject;
 
 
 /**
@@ -56,17 +52,17 @@ public class CourseFragment extends Fragment {
         mRecyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
-        final ParseRecyclerQueryAdapter<ParseObject,CourseViewHolder> adapter = new ParseRecyclerQueryAdapter<>(getActivity(), CourseViewHolder.class,"Course");
+//        final ParseRecyclerQueryAdapter<ParseObject,CourseViewHolder> adapter = new ParseRecyclerQueryAdapter<>(getActivity(), CourseViewHolder.class,"Course");
 
-        mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                mListener.onCourseSelected(adapter.getItem(position).getString("title"),
-                        adapter.getItem(position).getInt("lab_count"),
-                        adapter.getItem(position).getString("grade_table_name"));
-            }
-        }));
-        mRecyclerView.setAdapter(adapter);
+//        mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(View view, int position) {
+//                mListener.onCourseSelected(adapter.getItem(position).getString("title"),
+//                        adapter.getItem(position).getInt("lab_count"),
+//                        adapter.getItem(position).getString("grade_table_name"));
+//            }
+//        }));
+//        mRecyclerView.setAdapter(adapter);
         return view;
     }
 

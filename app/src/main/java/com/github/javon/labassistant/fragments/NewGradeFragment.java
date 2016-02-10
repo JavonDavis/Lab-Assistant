@@ -3,7 +3,14 @@ package com.github.javon.labassistant.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -22,6 +29,7 @@ public class NewGradeFragment extends Fragment {
 
     public static final String TAG = NewGradeFragment.class.getName();
 
+    @Bind(R.id.toolbar) Toolbar mToolbar;
     @Bind(R.id.spinner_course) Spinner mSpinnerCourse;
     @Bind(R.id.spinner_grade) Spinner mSpinnerGrade;
     @Bind(R.id.spinner_lab) Spinner mSpinnerLab;
@@ -67,12 +75,21 @@ public class NewGradeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_new_grade, container, false);
         ButterKnife.bind(this, view);
 
+        ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
+        mToolbar.setTitle("New Grade");
+
+
         setupView();
 
         return view;
     }
 
     private void setupView() {
+
+        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+
+
+        if (actionBar != null) actionBar.setDisplayHomeAsUpEnabled(true);
 
         ArrayAdapter<CharSequence> mCourseAdapter = ArrayAdapter
                 .createFromResource(getActivity(), R.array.course_array, R.layout.spinner_toolbar_dropdown_title);
@@ -130,7 +147,6 @@ public class NewGradeFragment extends Fragment {
         btnCancel.setOnClickListener(v -> mListener.cancelSubmission());
     }
 
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -146,6 +162,22 @@ public class NewGradeFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_new_grade, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(getActivity());
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public interface OnGradeCreatedListener {
