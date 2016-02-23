@@ -3,6 +3,8 @@ package com.github.javon.labassistant.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.github.javon.labassistant.R;
@@ -12,25 +14,46 @@ import com.github.javon.labassistant.fragments.LoginFragment;
 import com.github.javon.labassistant.fragments.ProgressFragment;
 import com.parse.ParseUser;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 
 public class LoginActivity extends AppCompatActivity
         implements LoginFragment.OnLoginAttemptedListener, ProgressFragment.OnLoginProgressListener,
         OfflineDialogFragment.OfflineDialogListener {
 
+    @Bind(R.id.et_id_number) EditText etIdNumber;
+    @Bind(R.id.et_password) EditText etPassword;
+    @Bind(R.id.btn_next) Button btnNext;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_login);
+        ButterKnife.bind(this);
 
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.container,LoginFragment.newInstance("",""))
-                .commit();
+        if (ParseUser.getCurrentUser() != null) onLoginSuccessful(); // maybe move this before bindings to no waste memory
 
-        ParseUser currentUser = ParseUser.getCurrentUser();
-        if (currentUser != null) {
-                onLoginSuccessful();
-        }
+        btnNext.setOnClickListener(v -> {
+            final String id = etIdNumber.getText().toString();
+            final String password = etPassword.getText().toString();
+
+            if (password.isEmpty() || id.isEmpty()) {
+                Toast.makeText(LoginActivity.this, "Please fill out all fields", Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            attemptLogin();
+
+        });
+
+    }
+
+    private void attemptLogin() {
+
+
+
     }
 
     protected void onStart() {
