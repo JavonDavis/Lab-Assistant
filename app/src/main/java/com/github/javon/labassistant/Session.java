@@ -66,4 +66,10 @@ public class Session {
     private boolean retrieveBoolean(String label) {
         return prefs.getBoolean(label, false);
     }
+
+    public void login(String id, String password) {
+        setUsername(id);
+        setPassword(password);
+        setLoggedIn(true);
+    }
 }

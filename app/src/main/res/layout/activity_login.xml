@@ -2,7 +2,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <LinearLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
@@ -59,41 +58,5 @@
         android:textStyle="bold"
         android:layout_above="@+id/container"
         android:layout_centerHorizontal="true" />
-
-    <!--<LinearLayout-->
-        <!--android:id="@+id/loading_view"-->
-        <!--android:orientation="vertical"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_centerVertical="true"-->
-        <!--android:layout_centerHorizontal="true"-->
-        <!--android:padding="5dp"-->
-        <!--android:gravity="center"-->
-        <!--android:visibility="gone">-->
-
-        <!--<ProgressBar-->
-            <!--android:layout_width="100dp"-->
-            <!--android:layout_height="100dp"-->
-            <!--android:id="@+id/progressBar" />-->
-    <!--</LinearLayout>-->
-
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
-        <!--android:text="@string/header"-->
-        <!--android:textStyle="bold"-->
-        <!--android:textSize="36sp"-->
-        <!--android:id="@+id/header"-->
-        <!--android:layout_marginTop="96dp"-->
-        <!--android:layout_alignParentTop="true"-->
-        <!--android:layout_centerHorizontal="true" />-->
-
-    <!--<FrameLayout-->
-        <!--android:id="@+id/container"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_centerVertical="true"-->
-        <!--android:layout_centerHorizontal="true"/>-->
 
 </RelativeLayout>
