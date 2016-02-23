@@ -17,20 +17,11 @@ public class LoginActivity extends AppCompatActivity
         implements LoginFragment.OnLoginAttemptedListener, ProgressFragment.OnLoginProgressListener,
         OfflineDialogFragment.OfflineDialogListener {
 
-    OfflineDialogFragment dialog = null;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_login);
-
-//        Button offlineBtn = (Button) findViewById(R.id.offlineSave);
-
-//        offlineBtn.setOnClickListener(v -> {
-//            OfflineDialogFragment fragment = new OfflineDialogFragment();
-//            fragment.show(getSupportFragmentManager(), "offline_save");
-//        });
 
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.container,LoginFragment.newInstance("",""))

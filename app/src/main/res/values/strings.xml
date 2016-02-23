@@ -68,5 +68,6 @@
     <string name="logout">Logout</string>
     <string name="cancel">Cancel</string>
     <string name="registration_number">Registration Number</string>
+    <string name="title_activity_delete">DeleteActivity</string>
 </resources>
 
