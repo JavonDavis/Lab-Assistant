@@ -14,6 +14,7 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 import com.github.javon.labassistant.R;
 import com.github.javon.labassistant.Session;
+import com.github.javon.labassistant.activities.grades.ListGradesActivity;
 import com.github.javon.labassistant.events.FailedAuthenticationEvent;
 import com.github.javon.labassistant.events.LoginEvent;
 import com.github.javon.labassistant.models.User;
@@ -49,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
         mSession = new Session(this);
 
         if (mSession.isLoggedIn()) {
-            startActivity(new Intent(this, HomeActivity.class));
+            startActivity(new Intent(this, ListGradesActivity.class));
             finish();
         }
 

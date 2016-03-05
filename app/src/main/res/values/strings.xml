@@ -72,5 +72,6 @@
     <string name="login">Login</string>
     <string name="password">Password</string>
     <string name="connect">Connect</string>
+    <string name="title_activity_new_grade">NewGradeActivity</string>
 </resources>
 

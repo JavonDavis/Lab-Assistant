@@ -29,7 +29,8 @@
         android:theme="@style/AppTheme">
 
         <!-- Activities -->
-        <activity android:name=".activities.SplashActivity"
+        <activity
+            android:name=".activities.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,12 +40,8 @@
         </activity>
         <activity
             android:name=".activities.LoginActivity"
-            android:launchMode="singleInstance">
-
-        </activity>
-        <activity android:name=".activities.MainActivity">
-
-        </activity>
+            android:launchMode="singleInstance" />
+        <activity android:name=".activities.MainActivity" />
 
         <!-- Services -->
         <service android:name=".classes.geolocation.GeofenceTransitionsIntentService" />
@@ -59,7 +56,7 @@
         <activity
             android:name=".activities.HomeActivity"
             android:label="Grades"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
 
         <service android:name="com.parse.PushService" />
 
@@ -77,6 +74,11 @@
         <activity
             android:name=".activities.DeleteActivity"
             android:label="@string/title_activity_delete"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".activities.grades.ListGradesActivity" />
+        <activity
+            android:name=".activities.grades.NewGradeActivity"
+            android:label="@string/title_activity_new_grade"
             android:theme="@style/AppTheme"></activity>
     </application>
 
