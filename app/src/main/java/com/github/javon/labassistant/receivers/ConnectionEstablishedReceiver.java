@@ -8,7 +8,7 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.github.javon.labassistant.Session;
-import com.github.javon.labassistant.models.Grade;
+import com.github.javon.labassistant.Grade;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 

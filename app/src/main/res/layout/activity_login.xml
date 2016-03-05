@@ -1,42 +1,71 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorPrimaryDark">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/app_name"
+        android:textSize="40sp"
+        android:layout_marginBottom="20dp"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"/>
+
 
     <LinearLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_centerInParent="true"
         android:paddingStart="16dp"
         android:paddingLeft="16dp"
         android:paddingEnd="16dp"
         android:paddingRight="16dp"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="60dp">
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:textColorHint="#ffffff">
 
             <EditText
                 android:id="@+id/et_id_number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/id_number"
-                android:inputType="number"/>
+                android:inputType="number"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                android:backgroundTint="#ffffff"
+                android:textColorHighlight="#ffffff"
+                android:textIsSelectable="true"
+                android:textColorLink="#ffffff" />
 
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:textColorHint="#ffffff">
 
             <EditText
                 android:id="@+id/et_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/password"
-                android:inputType="textPassword"/>
+                android:inputType="textPassword"
+                style="@style/LoginEditText"
+                android:backgroundTint="#ffffff"
+                android:textColor="#ffffff"
+                android:textColorHint="#ffffff"
+                android:textColorHighlight="#ffffff"
+                android:textColorLink="#ffffff" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -45,18 +74,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/connect"
-            style="@style/Widget.AppCompat.Button"/>
+            android:background="@color/colorPrimaryLight"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="30dp"/>
 
     </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/app_name"
-        android:textSize="40dp"
-        android:textStyle="bold"
-        android:layout_above="@+id/container"
-        android:layout_centerHorizontal="true" />
 
-</RelativeLayout>
+</LinearLayout>

@@ -3,7 +3,6 @@ package com.github.javon.labassistant;
 import android.app.Application;
 
 import com.firebase.client.Firebase;
-import com.github.javon.labassistant.models.Grade;
 import com.parse.Parse;
 import com.parse.ParseInstallation;
 import com.parse.ParseObject;

@@ -7,9 +7,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.firebase.client.Firebase;
 import com.github.javon.labassistant.R;
 import com.github.javon.labassistant.Session;
-import com.github.javon.labassistant.utils.NetworkUtil;
+import com.github.javon.labassistant.models.User;
 import com.parse.ParseUser;
 
 import butterknife.Bind;
@@ -22,6 +23,8 @@ public class LoginActivity extends AppCompatActivity {
     @Bind(R.id.et_password) EditText etPassword;
     @Bind(R.id.btn_next) Button btnNext;
 
+    Firebase myFirebaseRef = new Firebase("https://labtech.firebaseio.com/");
+
     private boolean mConnected = false;
     private Session mSession;
 
@@ -31,22 +34,32 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
-        if (ParseUser.getCurrentUser() != null) onLoginSuccessful(); // maybe move this before bindings to no waste memory
-        mConnected = NetworkUtil.isNetworkAvailable(this);
-        mSession = new Session(this);
-
         btnNext.setOnClickListener(v -> {
-            final String id = etIdNumber.getText().toString();
-            final String password = etPassword.getText().toString();
+            String id = etIdNumber.getText().toString();
+            String password = etPassword.getText().toString();
 
-            if (password.isEmpty() || id.isEmpty()) {
-                Toast.makeText(LoginActivity.this, "Please fill out all fields", Toast.LENGTH_LONG).show();
-                return;
-            }
+            User user = new User(id, password);
 
-            attemptLogin(id, password);
-
+            Firebase userRef = myFirebaseRef.child("users").child(id);
+            userRef.setValue(user);
         });
+
+//        if (ParseUser.getCurrentUser() != null) onLoginSuccessful(); // maybe move this before bindings to no waste memory
+//        mConnected = NetworkUtil.isNetworkAvailable(this);
+//        mSession = new Session(this);
+//
+//        btnNext.setOnClickListener(v -> {
+//            final String id = etIdNumber.getText().toString();
+//            final String password = etPassword.getText().toString();
+//
+//            if (password.isEmpty() || id.isEmpty()) {
+//                Toast.makeText(LoginActivity.this, "Please fill out all fields", Toast.LENGTH_LONG).show();
+//                return;
+//            }
+//
+//            attemptLogin(id, password);
+//
+//        });
     }
 
     /**

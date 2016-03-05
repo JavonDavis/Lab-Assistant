@@ -22,4 +22,13 @@
     <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowBackground">@drawable/splash</item>
     </style>
+
+    <style name="LoginButton" parent="Widget.AppCompat.Button">
+        <item name="android:color">@color/colorPrimaryLight</item>
+    </style>
+
+    <style name="LoginEditText" parent="Widget.AppCompat.EditText">
+        <item name="android:color">@android:color/white</item>
+        <item name="colorAccent">@android:color/white</item>
+    </style>
 </resources>

@@ -1,4 +1,4 @@
-package com.github.javon.labassistant.models;
+package com.github.javon.labassistant;
 
 import com.parse.ParseClassName;
 import com.parse.ParseObject;

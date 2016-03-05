@@ -26,7 +26,7 @@ import com.github.javon.labassistant.events.LogoutEvent;
 import com.github.javon.labassistant.events.NetworkConnectedEvent;
 import com.github.javon.labassistant.events.NetworkOfflineEvent;
 import com.github.javon.labassistant.fragments.NewGradeFragment;
-import com.github.javon.labassistant.models.Grade;
+import com.github.javon.labassistant.Grade;
 import com.github.javon.labassistant.utils.NetworkUtil;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
