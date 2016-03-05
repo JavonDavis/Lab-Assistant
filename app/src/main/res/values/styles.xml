@@ -25,6 +25,7 @@
 
     <style name="LoginButton" parent="Widget.AppCompat.Button">
         <item name="android:color">@color/colorPrimaryLight</item>
+        <item name="android:state_pressed">@color/colorPrimaryDark</item>
     </style>
 
     <style name="LoginEditText" parent="Widget.AppCompat.EditText">
