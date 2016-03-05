@@ -1,9 +1,6 @@
 package com.github.javon.labassistant.activities;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
@@ -12,6 +9,7 @@ import android.widget.Toast;
 
 import com.github.javon.labassistant.R;
 import com.github.javon.labassistant.Session;
+import com.github.javon.labassistant.utils.NetworkUtil;
 import com.parse.ParseUser;
 
 import butterknife.Bind;
@@ -34,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         if (ParseUser.getCurrentUser() != null) onLoginSuccessful(); // maybe move this before bindings to no waste memory
-        mConnected = checkInitialConnection();
+        mConnected = NetworkUtil.isNetworkAvailable(this);
         mSession = new Session(this);
 
         btnNext.setOnClickListener(v -> {
@@ -49,14 +47,6 @@ public class LoginActivity extends AppCompatActivity {
             attemptLogin(id, password);
 
         });
-    }
-
-    private boolean checkInitialConnection() {
-        ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo wifi = connMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-        NetworkInfo mobile = connMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-
-        return wifi != null && wifi.isConnectedOrConnecting() || mobile != null && mobile.isConnectedOrConnecting();
     }
 
     /**

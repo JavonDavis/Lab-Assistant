@@ -2,6 +2,7 @@ package com.github.javon.labassistant;
 
 import android.app.Application;
 
+import com.firebase.client.Firebase;
 import com.github.javon.labassistant.models.Grade;
 import com.parse.Parse;
 import com.parse.ParseInstallation;
@@ -16,6 +17,8 @@ public class App extends Application{
     @Override
     public void onCreate() {
         super.onCreate();
+
+        Firebase.setAndroidContext(this);
 
         String appId = getResources().getString(R.string.application_id);
         String clientId = getResources().getString(R.string.client_id);

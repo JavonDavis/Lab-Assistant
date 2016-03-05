@@ -27,6 +27,7 @@ public class NetworkChangedReceiver extends BroadcastReceiver {
 
         boolean isConnected = wifi != null && wifi.isConnectedOrConnecting() ||
                 mobile != null && mobile.isConnectedOrConnecting();
+
         if (isConnected) {
             bus.post(new NetworkConnectedEvent());
             Log.d("Network Available ", "YES");

@@ -27,7 +27,7 @@ import com.github.javon.labassistant.events.NetworkConnectedEvent;
 import com.github.javon.labassistant.events.NetworkOfflineEvent;
 import com.github.javon.labassistant.fragments.NewGradeFragment;
 import com.github.javon.labassistant.models.Grade;
-import com.github.javon.labassistant.utility.NetworkUtil;
+import com.github.javon.labassistant.utils.NetworkUtil;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
@@ -66,41 +66,20 @@ public class HomeActivity extends AppCompatActivity implements NewGradeFragment.
 
         isConnected = NetworkUtil.isNetworkAvailable(this);
 
+        setupViews();
+    }
+
+    private void setupViews() {
         setupToolbar();
         setupRecyclerView();
-
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_home, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.logout:
-                bus.post(new LogoutEvent());
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 
 
-    @Override
-    public void onDestroy() {
-        bus.unregister(this);
-        super.onDestroy();
-    }
 
     private void setupToolbar() {
         setSupportActionBar(mToolbar);
 
-        if (getSupportActionBar() != null)
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         ArrayAdapter<CharSequence> mCourseAdapter = ArrayAdapter
                 .createFromResource(this, R.array.course_array, R.layout.spinner_toolbar_dropdown_title);
@@ -142,6 +121,31 @@ public class HomeActivity extends AppCompatActivity implements NewGradeFragment.
                 .replace(frameLayout.getId(), NewGradeFragment.newInstance(courseIndex, labIndex))
                 .addToBackStack(NewGradeFragment.TAG)
                 .commit());
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_home, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.logout:
+                bus.post(new LogoutEvent());
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+
+    @Override
+    public void onDestroy() {
+        bus.unregister(this);
+        super.onDestroy();
     }
 
     /*

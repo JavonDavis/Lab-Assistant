@@ -1,4 +1,4 @@
-package com.github.javon.labassistant.utility;
+package com.github.javon.labassistant.utils;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
