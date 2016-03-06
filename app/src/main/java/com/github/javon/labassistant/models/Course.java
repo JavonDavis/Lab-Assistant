@@ -1,5 +1,7 @@
 package com.github.javon.labassistant.models;
 
+import java.util.List;
+
 import io.realm.RealmObject;
 
 /**
@@ -8,6 +10,8 @@ import io.realm.RealmObject;
 public class Course extends RealmObject {
 
     private String name;
+    private List<Student> students;
+
 
     public Course() {}
 

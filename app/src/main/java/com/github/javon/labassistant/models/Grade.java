@@ -4,10 +4,15 @@ import io.realm.RealmObject;
 
 /**
  * Created by shane on 3/5/16.
+ *
+ * This class represents each grade assigned to a student for each lab
+ * attempted.
  */
 public class Grade extends RealmObject {
 
     private int value;
+    private Student student;
+    private User grader;
 
     public Grade() {}
 

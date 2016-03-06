@@ -1,5 +1,7 @@
 package com.github.javon.labassistant.models;
 
+import java.util.List;
+
 /**
  * Created by shane on 3/5/16.
  */
@@ -9,6 +11,11 @@ public class Student {
     private String firstName;
     private String lastName;
 
+    // Relationships
+    private List<Grade> grades;
+    private List<Course> courses;
+
+    // Required by both firebase and realm
     public Student() {}
 
     public Student(String registrationNumber, String firstName, String lastName) {
