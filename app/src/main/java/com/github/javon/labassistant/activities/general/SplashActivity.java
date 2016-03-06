@@ -1,9 +1,11 @@
-package com.github.javon.labassistant.activities;
+package com.github.javon.labassistant.activities.general;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+
+import com.github.javon.labassistant.activities.LoginActivity;
 
 /**
  * Created by shane on 3/4/16.

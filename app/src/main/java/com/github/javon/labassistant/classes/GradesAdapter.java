@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 import com.github.javon.labassistant.R;
 import com.github.javon.labassistant.classes.holders.GradesViewHolder;
-import com.github.javon.labassistant.fragments.dialogs.GradesDialogFragment;
+import com.github.javon.labassistant.dialogs.GradesDialogFragment;
 
 import java.util.ArrayList;
 import java.util.List;

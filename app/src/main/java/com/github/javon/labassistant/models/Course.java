@@ -6,12 +6,18 @@ import io.realm.RealmObject;
 
 /**
  * Created by shane on 3/5/16.
+ *
+ * This class represents the each course that has accompanying labs.
+ * It acts similarly to a pivot table, in that it links to both the
+ * Student and Grade entities in dependent relationship.
  */
 public class Course extends RealmObject {
 
     private String name;
-    private List<Student> students;
 
+    // Relationships
+    private List<Student> students;
+    private List<Grade> grades;
 
     public Course() {}
 

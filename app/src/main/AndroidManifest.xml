@@ -30,7 +30,7 @@
 
         <!-- Activities -->
         <activity
-            android:name=".activities.SplashActivity"
+            android:name=".activities.general.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,7 +41,7 @@
         <activity
             android:name=".activities.LoginActivity"
             android:launchMode="singleInstance" />
-        <activity android:name=".activities.MainActivity" />
+        <activity android:name=".activities.general.MainActivity" />
 
         <!-- Services -->
         <service android:name=".classes.geolocation.GeofenceTransitionsIntentService" />
@@ -54,7 +54,7 @@
         </receiver>
 
         <activity
-            android:name=".activities.HomeActivity"
+            android:name=".activities.general.HomeActivity"
             android:label="Grades"
             android:theme="@style/AppTheme" />
 

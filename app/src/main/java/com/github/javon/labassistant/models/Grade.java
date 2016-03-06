@@ -12,7 +12,7 @@ public class Grade extends RealmObject {
 
     private int value;
     private Student student;
-    private User grader;
+    private User labtech; // grader
 
     public Grade() {}
 

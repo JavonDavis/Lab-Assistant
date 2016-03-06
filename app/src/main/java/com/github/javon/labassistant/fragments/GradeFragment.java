@@ -14,7 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.javon.labassistant.R;
-import com.github.javon.labassistant.fragments.dialogs.GradesDialogFragment;
+import com.github.javon.labassistant.dialogs.GradesDialogFragment;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseUser;

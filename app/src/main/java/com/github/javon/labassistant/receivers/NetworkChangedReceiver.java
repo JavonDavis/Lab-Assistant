@@ -7,8 +7,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
-import com.github.javon.labassistant.events.NetworkConnectedEvent;
-import com.github.javon.labassistant.events.NetworkOfflineEvent;
+import com.github.javon.labassistant.events.network.NetworkConnectedEvent;
+import com.github.javon.labassistant.events.network.NetworkOfflineEvent;
 
 import org.greenrobot.eventbus.EventBus;
 

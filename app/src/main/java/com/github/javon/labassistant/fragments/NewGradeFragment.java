@@ -20,7 +20,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.github.javon.labassistant.R;
-import com.github.javon.labassistant.Grade;
+import com.github.javon.labassistant.models.parse.Grade;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

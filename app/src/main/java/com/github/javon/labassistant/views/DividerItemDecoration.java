@@ -1,4 +1,4 @@
-package com.github.javon.labassistant;
+package com.github.javon.labassistant.views;
 
 import android.content.Context;
 import android.content.res.TypedArray;

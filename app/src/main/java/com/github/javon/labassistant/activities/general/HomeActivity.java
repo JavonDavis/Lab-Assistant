@@ -1,4 +1,4 @@
-package com.github.javon.labassistant.activities;
+package com.github.javon.labassistant.activities.general;
 
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -21,12 +21,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.github.javon.labassistant.R;
-import com.github.javon.labassistant.Session;
-import com.github.javon.labassistant.events.LogoutEvent;
-import com.github.javon.labassistant.events.NetworkConnectedEvent;
-import com.github.javon.labassistant.events.NetworkOfflineEvent;
+import com.github.javon.labassistant.models.Session;
+import com.github.javon.labassistant.events.auth.LogoutEvent;
+import com.github.javon.labassistant.events.network.NetworkConnectedEvent;
+import com.github.javon.labassistant.events.network.NetworkOfflineEvent;
 import com.github.javon.labassistant.fragments.NewGradeFragment;
-import com.github.javon.labassistant.Grade;
+import com.github.javon.labassistant.models.parse.Grade;
 import com.github.javon.labassistant.utils.NetworkUtil;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;

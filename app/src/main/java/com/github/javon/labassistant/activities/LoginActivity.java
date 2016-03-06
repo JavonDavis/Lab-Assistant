@@ -13,10 +13,12 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 import com.github.javon.labassistant.R;
-import com.github.javon.labassistant.Session;
+import com.github.javon.labassistant.models.Session;
+import com.github.javon.labassistant.activities.general.HomeActivity;
+import com.github.javon.labassistant.activities.general.MainActivity;
 import com.github.javon.labassistant.activities.grades.ListGradesActivity;
-import com.github.javon.labassistant.events.FailedAuthenticationEvent;
-import com.github.javon.labassistant.events.LoginEvent;
+import com.github.javon.labassistant.events.auth.FailedAuthenticationEvent;
+import com.github.javon.labassistant.events.auth.LoginEvent;
 import com.github.javon.labassistant.models.User;
 import com.parse.ParseUser;
 

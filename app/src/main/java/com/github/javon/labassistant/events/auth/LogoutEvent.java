@@ -1,4 +1,4 @@
-package com.github.javon.labassistant.events;
+package com.github.javon.labassistant.events.auth;
 
 /**
  * Created by shane on 2/8/16.

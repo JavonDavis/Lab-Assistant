@@ -1,14 +1,22 @@
 package com.github.javon.labassistant.models;
 
+import java.util.List;
+
 import io.realm.RealmObject;
 
 /**
  * Created by shane on 3/5/16.
+ *
+ * This class represents users who can authenticate successfully using
+ * the system, namely Lab Technicians.
  */
 public class User extends RealmObject{
 
     private String registrationNumber;
     private String password;
+
+    // These are grades that labtech's have assigned
+    private List<Grade> grades;
 
     public User() {}
 

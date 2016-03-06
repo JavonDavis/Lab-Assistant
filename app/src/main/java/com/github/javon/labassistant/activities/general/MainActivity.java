@@ -1,4 +1,4 @@
-package com.github.javon.labassistant.activities;
+package com.github.javon.labassistant.activities.general;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -11,10 +11,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.github.javon.labassistant.R;
+import com.github.javon.labassistant.activities.LoginActivity;
 import com.github.javon.labassistant.fragments.CourseFragment;
 import com.github.javon.labassistant.fragments.GradeFragment;
 import com.github.javon.labassistant.fragments.IDNumberFragment;
-import com.github.javon.labassistant.fragments.dialogs.AddStudentDialogFragment;
+import com.github.javon.labassistant.dialogs.AddStudentDialogFragment;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
