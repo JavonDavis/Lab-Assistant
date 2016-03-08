@@ -26,7 +26,7 @@ public class User extends RealmObject{
         this.password = password;
     }
 
-    public String getRegistrationNumber() {
+    public String getUsername() {
         return registrationNumber;
     }
 

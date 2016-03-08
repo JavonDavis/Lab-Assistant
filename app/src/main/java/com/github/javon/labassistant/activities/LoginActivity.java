@@ -14,8 +14,8 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 import com.github.javon.labassistant.R;
 import com.github.javon.labassistant.activities.students.ListStudentsActivity;
-import com.github.javon.labassistant.events.auth.FailedAuthenticationEvent;
-import com.github.javon.labassistant.events.auth.LoginEvent;
+import com.github.javon.labassistant.events.auth.LoginFailedEvent;
+import com.github.javon.labassistant.events.auth.LoginSuccessfulEvent;
 import com.github.javon.labassistant.models.Session;
 import com.github.javon.labassistant.models.User;
 
@@ -51,39 +51,7 @@ public class LoginActivity extends AppCompatActivity {
             finish();
         }
 
-        btnNext.setOnClickListener(v -> {
-            final String id = etIdNumber.getText().toString();
-            final String password = etPassword.getText().toString();
-
-            if (id.isEmpty() || password.isEmpty()) {
-                Toast.makeText(LoginActivity.this, "Both the username and password must be entered", Toast.LENGTH_LONG).show();
-                return;
-            }
-
-            myRef.push().setValue(new User(id, password));
-
-            myRef.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    Log.d(TAG, dataSnapshot.getChildrenCount() + " users");
-
-                    for (DataSnapshot userSnapshot: dataSnapshot.getChildren()) {
-                        User user = userSnapshot.getValue(User.class);
-                        if (id.equals(user.getRegistrationNumber())) {
-                            EventBus.getDefault().post(new LoginEvent(user.getRegistrationNumber(), user.getPassword()));
-                            Log.d(TAG, "Here with id: " + id + " and " + user.getRegistrationNumber());
-                            return;
-                        }
-                    }
-                    EventBus.getDefault().post(new FailedAuthenticationEvent());
-                }
-
-                @Override
-                public void onCancelled(FirebaseError firebaseError) {
-                    Log.d(TAG, "The read failed: " + firebaseError.getMessage());
-                }
-            });
-        });
+        btnNext.setOnClickListener(v -> attemptManualLogin());
     }
 
 
@@ -100,19 +68,18 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     @Subscribe
-    public void onMessageEvent(LoginEvent event) {
+    public void onMessageEvent(LoginSuccessfulEvent event) {
         Session session = new Session(this);
 
         session.setUsername(event.getUsername());
         session.setPassword(event.getPassword());
-        session.setToken(event.getToken());
         session.setLoggedIn(true);
 
         loginSuccessful();
     }
 
     @Subscribe
-    public void onMessageEvent(FailedAuthenticationEvent event) {
+    public void onMessageEvent(LoginFailedEvent event) {
         Toast.makeText(this, "Invalide credentials", Toast.LENGTH_LONG).show();
     }
 
@@ -121,5 +88,39 @@ public class LoginActivity extends AppCompatActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();
+    }
+
+    private void attemptManualLogin() {
+        final String username = etIdNumber.getText().toString();
+        final String password = etPassword.getText().toString();
+
+        if (username.isEmpty() || password.isEmpty()) {
+            Toast.makeText(LoginActivity.this, "Both the username and password must be entered", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        myRef.push().setValue(new User(username, password));
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d(TAG, dataSnapshot.getChildrenCount() + " users");
+
+                for (DataSnapshot userSnapshot: dataSnapshot.getChildren()) {
+                    User user = userSnapshot.getValue(User.class);
+                    if (username.equals(user.getUsername())) {
+                        EventBus.getDefault().post(new LoginSuccessfulEvent(user.getUsername(), user.getPassword()));
+                        Log.d(TAG, "Here with username: " + username);
+                        return;
+                    }
+                }
+                EventBus.getDefault().post(new LoginFailedEvent());
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+                Log.d(TAG, "The read failed: " + firebaseError.getMessage());
+            }
+        });
     }
 }

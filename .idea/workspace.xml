@@ -10,8 +10,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6b3b078c-c9d9-4ba0-b51d-98177cd8b104" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/github/javon/labassistant/events/auth/FailedAuthenticationEvent.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/github/javon/labassistant/events/auth/LoginFailedEvent.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/github/javon/labassistant/events/auth/LoginEvent.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/github/javon/labassistant/events/auth/LoginSuccessfulEvent.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/github/javon/labassistant/activities/LoginActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/github/javon/labassistant/activities/LoginActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/github/javon/labassistant/models/User.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/github/javon/labassistant/models/User.java" />
     </list>
     <ignored path="LabAssistant.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -56,27 +58,30 @@
     <favorites_list name="LabAssistant" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5">
+    <splitter split-orientation="horizontal" split-proportion="0.2925">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="LoginActivity.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/app/src/main/java/com/github/javon/labassistant/activities/LoginActivity.java">
               <provider selected="true" editor-type-id="text-editor">
                 <state vertical-scroll-proportion="0.0">
-                  <caret line="66" column="69" selection-start-line="66" selection-start-column="69" selection-end-line="66" selection-end-column="69" />
+                  <caret line="53" column="40" selection-start-line="53" selection-start-column="40" selection-end-line="53" selection-end-column="40" />
                   <folding>
-                    <marker date="1457449680905" expanded="true" signature="2164:3263" placeholder="//..." />
+                    <marker date="1457457516864" expanded="true" signature="1770:1772" placeholder="//..." />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="User.java" pinned="false" current-in-tab="false">
+          <file leaf-file-name="User.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/app/src/main/java/com/github/javon/labassistant/models/User.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="12" column="3" selection-start-line="12" selection-start-column="3" selection-end-line="12" selection-end-column="3" />
-                  <folding />
+                <state vertical-scroll-proportion="0.2594235">
+                  <caret line="16" column="28" selection-start-line="16" selection-start-column="28" selection-end-line="16" selection-end-column="28" />
+                  <folding>
+                    <element signature="e#691#692#0" expanded="true" />
+                    <element signature="e#732#733#0" expanded="true" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -85,7 +90,7 @@
             <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.firebase/firebase-token-generator/1.0.5/e657cfbd41becdb5ca59580173b6200aef7cfa50/firebase-token-generator-1.0.5-sources.jar!/com/firebase/security/token/TokenGenerator.java">
               <provider selected="true" editor-type-id="text-editor">
                 <state vertical-scroll-proportion="0.0">
-                  <caret line="89" column="28" selection-start-line="89" selection-start-column="28" selection-end-line="89" selection-end-column="28" />
+                  <caret line="64" column="17" selection-start-line="64" selection-start-column="17" selection-end-line="64" selection-end-column="17" />
                   <folding>
                     <element signature="e#665#666#0" expanded="true" />
                     <element signature="e#716#717#0" expanded="true" />
@@ -104,11 +109,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="Base64.java" pinned="false" current-in-tab="true">
+          <file leaf-file-name="Base64.java" pinned="false" current-in-tab="false">
             <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-codec/commons-codec/1.7/a97e03d6b57d47e9e1dbf7212278069064324ed/commons-codec-1.7-sources.jar!/org/apache/commons/codec/binary/Base64.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.30998853">
-                  <caret line="331" column="26" selection-start-line="331" selection-start-column="26" selection-end-line="331" selection-end-column="26" />
+                <state vertical-scroll-proportion="-5.806452">
+                  <caret line="326" column="26" selection-start-line="326" selection-start-column="26" selection-end-line="326" selection-end-column="26" />
                   <folding />
                 </state>
               </provider>
@@ -168,8 +173,18 @@
           <file leaf-file-name="LoginActivity.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/app/src/main/java/com/github/javon/labassistant/activities/LoginActivity.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.8980044">
-                  <caret line="86" column="0" selection-start-line="86" selection-start-column="0" selection-end-line="86" selection-end-column="0" />
+                <state vertical-scroll-proportion="0.38137472">
+                  <caret line="99" column="19" selection-start-line="99" selection-start-column="19" selection-end-line="99" selection-end-column="19" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="LoginSuccessfulEvent.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/app/src/main/java/com/github/javon/labassistant/events/auth/LoginSuccessfulEvent.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="9" column="64" selection-start-line="9" selection-start-column="64" selection-end-line="9" selection-end-column="64" />
                   <folding />
                 </state>
               </provider>
@@ -1907,7 +1922,6 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/github/javon/labassistant/activities/grades/GradeActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_grade.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/github/javon/labassistant/models/parse/Grade.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/github/javon/labassistant/models/User.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/github/javon/labassistant/models/Course.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/github/javon/labassistant/models/Student.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/github/javon/labassistant/activities/grades/ListGradesActivity.java" />
@@ -1927,7 +1941,9 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_new_grade.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/github/javon/labassistant/dialogs/NewGradeDialog.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/github/javon/labassistant/activities/grades/NewGradeActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/github/javon/labassistant/models/User.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/github/javon/labassistant/activities/LoginActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/github/javon/labassistant/events/auth/LoginSuccessfulEvent.java" />
       </list>
     </option>
   </component>
@@ -2319,6 +2335,82 @@
               <option name="myItemId" value="java" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="labassistant" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LabAssistant" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LabAssistant" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="labassistant" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="events" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LabAssistant" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LabAssistant" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="labassistant" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="events" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="auth" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
@@ -2331,7 +2423,7 @@
     <property name="project.structure.last.edited" value="Problems" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="SearchEverywhereHistoryKey" value="User&#9;FILE&#9;file:///home/shane/projects/android/LabAssistant/app/src/main/java/com/github/javon/labassistant/models/User.java&#10;DI&#9;FILE&#9;file:///home/shane/projects/android/LabAssistant/app/src/main/java/com/github/javon/labassistant/dialogs/NewGradeDialog.java&#10;.giti&#9;FILE&#9;file:///home/shane/projects/android/LabAssistant/.gitignore&#10;gra&#9;FILE&#9;file:///home/shane/projects/android/LabAssistant/app/build.gradle&#10;Login&#9;FILE&#9;file:///home/shane/projects/android/LabAssistant/app/src/main/java/com/github/javon/labassistant/activities/LoginActivity.java&#10;ListStude&#9;FILE&#9;file:///home/shane/projects/android/LabAssistant/app/src/main/java/com/github/javon/labassistant/activities/students/ListStudentsActivity.java&#10;styl&#9;FILE&#9;file:///home/shane/projects/android/LabAssistant/app/src/main/res/values/styles.xml&#10;An&#9;FILE&#9;file:///home/shane/projects/android/LabAssistant/app/src/main/AndroidManifest.xml&#10;Androi&#9;FILE&#9;file:///home/shane/projects/android/LabAssistant/app/src/main/AndroidManifest.xml&#10;style&#9;FILE&#9;file:///home/shane/projects/android/LabAssistant/app/src/main/res/values/styles.xml&#10;javax.ann&#9;FILE&#9;jar:///home/shane/.gradle/caches/modules-2/files-2.1/io.realm/realm-android/0.72.0/92b22d8a0a3ec516fc8b6549573ceb44c9fa6d5f/realm-android-0.72.0.jar!/META-INF/services/javax.annotation.processing.Processor" />
+    <property name="SearchEverywhereHistoryKey" value="User&#9;PSI&#9;JAVA://com.github.javon.labassistant.models.User&#10;DI&#9;FILE&#9;file:///home/shane/projects/android/LabAssistant/app/src/main/java/com/github/javon/labassistant/dialogs/NewGradeDialog.java&#10;.giti&#9;FILE&#9;file:///home/shane/projects/android/LabAssistant/.gitignore&#10;gra&#9;FILE&#9;file:///home/shane/projects/android/LabAssistant/app/build.gradle&#10;Login&#9;FILE&#9;file:///home/shane/projects/android/LabAssistant/app/src/main/java/com/github/javon/labassistant/activities/LoginActivity.java&#10;ListStude&#9;FILE&#9;file:///home/shane/projects/android/LabAssistant/app/src/main/java/com/github/javon/labassistant/activities/students/ListStudentsActivity.java&#10;styl&#9;FILE&#9;file:///home/shane/projects/android/LabAssistant/app/src/main/res/values/styles.xml&#10;An&#9;FILE&#9;file:///home/shane/projects/android/LabAssistant/app/src/main/AndroidManifest.xml&#10;Androi&#9;FILE&#9;file:///home/shane/projects/android/LabAssistant/app/src/main/AndroidManifest.xml&#10;style&#9;FILE&#9;file:///home/shane/projects/android/LabAssistant/app/src/main/res/values/styles.xml&#10;javax.ann&#9;FILE&#9;jar:///home/shane/.gradle/caches/modules-2/files-2.1/io.realm/realm-android/0.72.0/92b22d8a0a3ec516fc8b6549573ceb44c9fa6d5f/realm-android-0.72.0.jar!/META-INF/services/javax.annotation.processing.Processor" />
     <property name="android.project.structure.last.selected" value="app" />
     <property name="android.project.structure.proportion" value="0.15" />
   </component>
@@ -2651,7 +2743,7 @@
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14621131" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14621131" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32977587" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24889381" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Fabric" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -2742,7 +2834,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/github/javon/labassistant/events/auth/FailedAuthenticationEvent.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/github/javon/labassistant/events/auth/LoginFailedEvent.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.14900662">
           <caret line="5" column="38" selection-start-line="5" selection-start-column="38" selection-end-line="5" selection-end-column="38" />
@@ -3007,17 +3099,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/github/javon/labassistant/events/auth/LoginEvent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.22727273">
-          <caret line="12" column="27" selection-start-line="12" selection-start-column="27" selection-end-line="12" selection-end-column="27" />
-          <folding>
-            <element signature="e#375#376#0" expanded="false" />
-            <element signature="e#403#404#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -3097,17 +3178,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.firebase/firebase-token-generator/1.0.5/e657cfbd41becdb5ca59580173b6200aef7cfa50/firebase-token-generator-1.0.5-sources.jar!/com/firebase/security/token/TokenGenerator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="89" column="28" selection-start-line="89" selection-start-column="28" selection-end-line="89" selection-end-column="28" />
-          <folding>
-            <element signature="e#665#666#0" expanded="true" />
-            <element signature="e#716#717#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.firebase/firebase-token-generator/1.0.5/e657cfbd41becdb5ca59580173b6200aef7cfa50/firebase-token-generator-1.0.5-sources.jar!/com/firebase/security/token/JWTEncoder.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -3116,10 +3186,29 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/github/javon/labassistant/models/User.java">
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-codec/commons-codec/1.7/a97e03d6b57d47e9e1dbf7212278069064324ed/commons-codec-1.7-sources.jar!/org/apache/commons/codec/binary/Base64.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.806452">
+          <caret line="326" column="26" selection-start-line="326" selection-start-column="26" selection-end-line="326" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.firebase/firebase-token-generator/1.0.5/e657cfbd41becdb5ca59580173b6200aef7cfa50/firebase-token-generator-1.0.5-sources.jar!/com/firebase/security/token/TokenGenerator.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="12" column="3" selection-start-line="12" selection-start-column="3" selection-end-line="12" selection-end-column="3" />
+          <caret line="64" column="17" selection-start-line="64" selection-start-column="17" selection-end-line="64" selection-end-column="17" />
+          <folding>
+            <element signature="e#665#666#0" expanded="true" />
+            <element signature="e#716#717#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/github/javon/labassistant/events/auth/LoginSuccessfulEvent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="9" column="64" selection-start-line="9" selection-start-column="64" selection-end-line="9" selection-end-column="64" />
           <folding />
         </state>
       </provider>
@@ -3127,18 +3216,21 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/github/javon/labassistant/activities/LoginActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="66" column="69" selection-start-line="66" selection-start-column="69" selection-end-line="66" selection-end-column="69" />
+          <caret line="53" column="40" selection-start-line="53" selection-start-column="40" selection-end-line="53" selection-end-column="40" />
           <folding>
-            <marker date="1457449680905" expanded="true" signature="2164:3263" placeholder="//..." />
+            <marker date="1457457516864" expanded="true" signature="1770:1772" placeholder="//..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-codec/commons-codec/1.7/a97e03d6b57d47e9e1dbf7212278069064324ed/commons-codec-1.7-sources.jar!/org/apache/commons/codec/binary/Base64.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/github/javon/labassistant/models/User.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.30998853">
-          <caret line="331" column="26" selection-start-line="331" selection-start-column="26" selection-end-line="331" selection-end-column="26" />
-          <folding />
+        <state vertical-scroll-proportion="0.2594235">
+          <caret line="16" column="28" selection-start-line="16" selection-start-column="28" selection-end-line="16" selection-end-column="28" />
+          <folding>
+            <element signature="e#691#692#0" expanded="true" />
+            <element signature="e#732#733#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

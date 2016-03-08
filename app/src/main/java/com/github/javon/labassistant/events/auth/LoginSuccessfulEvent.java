@@ -3,18 +3,13 @@ package com.github.javon.labassistant.events.auth;
 /**
  * Created by shane on 3/5/16.
  */
-public class LoginEvent {
+public class LoginSuccessfulEvent {
 
-    private final String username, password, token;
+    private final String username, password;
 
-    public LoginEvent(String username, String password, String token) {
+    public LoginSuccessfulEvent(String username, String password) {
         this.username = username;
         this.password = password;
-        this.token = token;
-    }
-
-    public String getToken() {
-        return token;
     }
 
     public String getUsername() {
