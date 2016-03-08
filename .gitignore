@@ -29,3 +29,6 @@ proguard/
 
 # Log Files
 *.log
+
+# Additional
+/app/src/main/res/values/strings-secret.xml

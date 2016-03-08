@@ -7,13 +7,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
-import com.firebase.simplelogin.FirebaseSimpleLoginError;
-import com.firebase.simplelogin.FirebaseSimpleLoginUser;
-import com.firebase.simplelogin.SimpleLogin;
-import com.firebase.simplelogin.SimpleLoginAuthenticatedHandler;
+import com.firebase.client.FirebaseError;
+import com.firebase.security.token.TokenGenerator;
 import com.github.javon.labassistant.R;
-import com.github.javon.labassistant.activities.general.HomeActivity;
 import com.github.javon.labassistant.activities.students.ListStudentsActivity;
 import com.github.javon.labassistant.events.auth.FailedAuthenticationEvent;
 import com.github.javon.labassistant.events.auth.LoginEvent;
@@ -21,6 +19,10 @@ import com.github.javon.labassistant.models.Session;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -37,8 +39,6 @@ public class LoginActivity extends AppCompatActivity {
     Firebase myRef = new Firebase("https://labtech.firebaseio.com");
 
     private boolean mConnected = false;
-    private Session mSession;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,15 +46,25 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
-        SimpleLogin authClient = new SimpleLogin(myRef, getApplicationContext());
-        authClient.createUser("620065739", "SR892", new SimpleLoginAuthenticatedHandler() {
+        final String username = "620065739";
+        final String password = "SR892";
+
+        Map<String, Object> payload = new HashMap<>();
+        payload.put("username", username);
+        payload.put("password", password);
+
+        TokenGenerator generator = new TokenGenerator(getString(R.string.firebase_secret));
+        String token = generator.createToken(new JSONObject(payload));
+
+        myRef.authWithCustomToken(token, new Firebase.AuthResultHandler() {
             @Override
-            public void authenticated(FirebaseSimpleLoginError error, FirebaseSimpleLoginUser user) {
-                if (error != null) {
-                    Toast.makeText(LoginActivity.this, "error sign in: " + error.getMessage(), Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(LoginActivity.this, "success " + user.getEmail(), Toast.LENGTH_LONG).show();
-                }
+            public void onAuthenticated(AuthData authData) {
+                EventBus.getDefault().post(new LoginEvent(username, password, authData.getToken()));
+            }
+
+            @Override
+            public void onAuthenticationError(FirebaseError error) {
+                Toast.makeText(LoginActivity.this, "error sign in: " + error.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -117,12 +127,14 @@ public class LoginActivity extends AppCompatActivity {
 
     @Subscribe
     public void onMessageEvent(LoginEvent event) {
-        mSession.setUsername(event.getRegistrationNumber());
-        mSession.setPassword(event.getPassword());
-        mSession.setLoggedIn(true);
+        Session session = new Session(this);
 
-        startActivity(new Intent(this, HomeActivity.class));
-        finish();
+        session.setUsername(event.getUsername());
+        session.setPassword(event.getPassword());
+        session.setToken(event.getToken());
+        session.setLoggedIn(true);
+
+        loginSuccessful();
     }
 
     @Subscribe
@@ -130,7 +142,7 @@ public class LoginActivity extends AppCompatActivity {
         Toast.makeText(this, "Invalide credentials", Toast.LENGTH_LONG).show();
     }
 
-    public void onLoginSuccessful() {
+    public void loginSuccessful() {
         Intent intent = new Intent(this, ListStudentsActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);

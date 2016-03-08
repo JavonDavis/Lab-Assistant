@@ -29,6 +29,13 @@
         android:layout_height="match_parent"
         />
 
+    <TextView
+        android:id="@+id/et_empty_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:text="@string/data_unavailable"/>
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_new_grade"
         android:layout_width="wrap_content"

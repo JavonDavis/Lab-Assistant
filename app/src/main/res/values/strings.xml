@@ -75,5 +75,6 @@
     <string name="title_activity_new_grade">NewGradeActivity</string>
     <string name="course">Course</string>
     <string name="confirm">Confirm</string>
+    <string name="data_unavailable">No Data Available</string>
 </resources>
 

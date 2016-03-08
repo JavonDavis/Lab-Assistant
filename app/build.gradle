@@ -53,5 +53,6 @@ dependencies {
     compile 'com.firebase:firebase-client-android:2.5.2'
     compile 'com.firebaseui:firebase-ui:0.3.1'
     compile 'com.firebase:firebase-simple-login:1.4.2'
+    compile 'com.firebase:firebase-token-generator:1.0.5'
     compile 'io.realm:realm-android:0.72.0'
 }

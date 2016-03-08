@@ -9,6 +9,7 @@ import android.preference.PreferenceManager;
  */
 public class Session {
 
+    private final static String KEY_TOKEN = "token";
     private final static String KEY_USERNAME = "username";
     private final static String KEY_PASSWORD = "password";
     private final static String KEY_LOGGED_IN = "loggedIn";
@@ -31,6 +32,10 @@ public class Session {
         save(KEY_LOGGED_IN, isLoggedIn);
     }
 
+    public void setToken(String token) {
+        save(KEY_TOKEN, token);
+    }
+
     public String getUsername() {
         return retrieveString(KEY_USERNAME);
     }
@@ -41,6 +46,10 @@ public class Session {
 
     public boolean isLoggedIn() {
         return retrieveBoolean(KEY_LOGGED_IN);
+    }
+
+    public String getToken() {
+        return retrieveString(KEY_TOKEN);
     }
 
     public void logout() {
@@ -72,4 +81,5 @@ public class Session {
         setPassword(password);
         setLoggedIn(true);
     }
+
 }

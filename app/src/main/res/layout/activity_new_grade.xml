@@ -38,11 +38,27 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Registration Number"
-                        android:textSize="30dp"
+                        android:textSize="30sp"
                         android:inputType="number"
                         />
 
                 </android.support.design.widget.TextInputLayout>
+
+
+                <TextView
+                    android:id="@+id/tv_registration_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="30sp"
+                    android:visibility="gone"
+                    />
+
+                <Button
+                    android:id="@+id/btn_save"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    />
 
             </LinearLayout>
 
@@ -51,5 +67,15 @@
     </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/content_new_grade" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_new_grade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_add_white_24dp"
+        android:theme="@style/MyFloatingButton"
+        />
 
 </android.support.design.widget.CoordinatorLayout>

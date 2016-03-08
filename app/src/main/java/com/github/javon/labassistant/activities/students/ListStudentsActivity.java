@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.firebase.client.Firebase;
@@ -25,6 +26,7 @@ public class ListStudentsActivity extends AppCompatActivity {
     @Bind(R.id.coordinatorLayout) CoordinatorLayout coordinatorLayout;
     @Bind(R.id.recycler_view_grades) RecyclerView recyclerViewStudents;
     @Bind(R.id.fab_new_grade) FloatingActionButton fadNewStudent;
+    @Bind(R.id.et_empty_list) EditText emptyText;
     @Bind(R.id.toolbar) Toolbar toolbar;
 
     private FirebaseRecyclerAdapter<Student, StudentViewHolder> mAdapter;
@@ -50,6 +52,7 @@ public class ListStudentsActivity extends AppCompatActivity {
 
         fadNewStudent.setOnClickListener(v -> startActivity(new Intent(ListStudentsActivity.this, NewGradeActivity.class)));
 
+
     }
 
     public static class StudentViewHolder extends RecyclerView.ViewHolder {
@@ -63,7 +66,7 @@ public class ListStudentsActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         mAdapter.cleanup(); // release references
+        super.onDestroy();
     }
 }

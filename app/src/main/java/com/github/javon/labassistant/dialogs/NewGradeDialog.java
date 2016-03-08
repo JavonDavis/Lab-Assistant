@@ -26,6 +26,8 @@ import butterknife.ButterKnife;
  */
 public class NewGradeDialog extends DialogFragment {
 
+    public static final String TAG = "new_grade_dialog";
+
     // spinners
     @Bind(R.id.et_registration_number) EditText etRegistrationNumber;
     @Bind(R.id.spinner_course) Spinner spinnerCourse;

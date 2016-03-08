@@ -5,15 +5,20 @@ package com.github.javon.labassistant.events.auth;
  */
 public class LoginEvent {
 
-    public final String registrationNumber, password;
+    private final String username, password, token;
 
-    public LoginEvent(String registrationNumber, String password) {
-        this.registrationNumber = registrationNumber;
+    public LoginEvent(String username, String password, String token) {
+        this.username = username;
         this.password = password;
+        this.token = token;
     }
 
-    public String getRegistrationNumber() {
-        return registrationNumber;
+    public String getToken() {
+        return token;
+    }
+
+    public String getUsername() {
+        return username;
     }
 
     public String getPassword() {
