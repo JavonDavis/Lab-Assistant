@@ -14,20 +14,6 @@
     android:orientation="vertical"
     android:background="@color/colorPrimaryLight">
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/FloatingLabel">
-
-        <EditText
-            android:id="@+id/et_registration_number"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Registration Number"
-            android:inputType="number"
-            />
-
-    </android.support.design.widget.TextInputLayout>
 
 
     <android.support.design.widget.TextInputLayout

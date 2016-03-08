@@ -3,22 +3,21 @@ package com.github.javon.labassistant.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
+import com.firebase.simplelogin.FirebaseSimpleLoginError;
+import com.firebase.simplelogin.FirebaseSimpleLoginUser;
+import com.firebase.simplelogin.SimpleLogin;
+import com.firebase.simplelogin.SimpleLoginAuthenticatedHandler;
 import com.github.javon.labassistant.R;
 import com.github.javon.labassistant.activities.general.HomeActivity;
 import com.github.javon.labassistant.activities.students.ListStudentsActivity;
 import com.github.javon.labassistant.events.auth.FailedAuthenticationEvent;
 import com.github.javon.labassistant.events.auth.LoginEvent;
 import com.github.javon.labassistant.models.Session;
-import com.github.javon.labassistant.models.User;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -35,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     @Bind(R.id.et_password) EditText etPassword;
     @Bind(R.id.btn_next) Button btnNext;
 
-    Firebase ref = new Firebase("https://labtech.firebaseio.com/users");
+    Firebase myRef = new Firebase("https://labtech.firebaseio.com");
 
     private boolean mConnected = false;
     private Session mSession;
@@ -47,47 +46,60 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
-        mSession = new Session(this);
-
-        if (mSession.isLoggedIn()) {
-            startActivity(new Intent(this, ListStudentsActivity.class));
-            finish();
-        }
-
-
-        btnNext.setOnClickListener(v -> {
-            final String id = etIdNumber.getText().toString();
-            final String password = etPassword.getText().toString();
-
-            if (id.isEmpty() || password.isEmpty()) {
-                Toast.makeText(LoginActivity.this, "Both the username and password must be entered", Toast.LENGTH_LONG).show();
-                return;
+        SimpleLogin authClient = new SimpleLogin(myRef, getApplicationContext());
+        authClient.createUser("620065739", "SR892", new SimpleLoginAuthenticatedHandler() {
+            @Override
+            public void authenticated(FirebaseSimpleLoginError error, FirebaseSimpleLoginUser user) {
+                if (error != null) {
+                    Toast.makeText(LoginActivity.this, "error sign in: " + error.getMessage(), Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(LoginActivity.this, "success " + user.getEmail(), Toast.LENGTH_LONG).show();
+                }
             }
-
-//            ref.push().setValue(new User(id, password));
-
-            ref.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    Log.d(TAG, dataSnapshot.getChildrenCount() + " users");
-
-                    for (DataSnapshot userSnapshot: dataSnapshot.getChildren()) {
-                        User user = userSnapshot.getValue(User.class);
-                        if (id.equals(user.getRegistrationNumber())) {
-                            EventBus.getDefault().post(new LoginEvent(user.getRegistrationNumber(), user.getPassword()));
-                            Log.d(TAG, "Here with id: " + id + " and " + user.getRegistrationNumber());
-                            return;
-                        }
-                    }
-                    EventBus.getDefault().post(new FailedAuthenticationEvent());
-                }
-
-                @Override
-                public void onCancelled(FirebaseError firebaseError) {
-                    Log.d(TAG, "The read failed: " + firebaseError.getMessage());
-                }
-            });
         });
+
+
+//        mSession = new Session(this);
+//
+//        if (mSession.isLoggedIn()) {
+//            startActivity(new Intent(this, ListStudentsActivity.class));
+//            finish();
+//        }
+//
+//
+//        btnNext.setOnClickListener(v -> {
+//            final String id = etIdNumber.getText().toString();
+//            final String password = etPassword.getText().toString();
+//
+//            if (id.isEmpty() || password.isEmpty()) {
+//                Toast.makeText(LoginActivity.this, "Both the username and password must be entered", Toast.LENGTH_LONG).show();
+//                return;
+//            }
+//
+////            ref.push().setValue(new User(id, password));
+//
+//            ref.addValueEventListener(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(DataSnapshot dataSnapshot) {
+//                    Log.d(TAG, dataSnapshot.getChildrenCount() + " users");
+//
+//                    for (DataSnapshot userSnapshot: dataSnapshot.getChildren()) {
+//                        User user = userSnapshot.getValue(User.class);
+//                        if (id.equals(user.getRegistrationNumber())) {
+//                            EventBus.getDefault().post(new LoginEvent(user.getRegistrationNumber(), user.getPassword()));
+//                            Log.d(TAG, "Here with id: " + id + " and " + user.getRegistrationNumber());
+//                            return;
+//                        }
+//                    }
+//                    EventBus.getDefault().post(new FailedAuthenticationEvent());
+//                }
+//
+//                @Override
+//                public void onCancelled(FirebaseError firebaseError) {
+//                    Log.d(TAG, "The read failed: " + firebaseError.getMessage());
+//                }
+//            });
+//        });
     }
 
 
