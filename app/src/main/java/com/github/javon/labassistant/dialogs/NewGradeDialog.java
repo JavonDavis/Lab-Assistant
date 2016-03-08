@@ -61,7 +61,8 @@ public class NewGradeDialog extends DialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        username = getArguments().getString(ARG_USERNAME, "");
+
+        if (null != getArguments()) username = getArguments().getString(ARG_USERNAME);
     }
 
     @Nullable

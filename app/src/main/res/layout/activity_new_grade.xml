@@ -34,7 +34,7 @@
                     android:theme="@style/FloatingLabel">
 
                     <EditText
-                        android:id="@+id/et_registration_number"
+                        android:id="@+id/et_username"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Registration Number"
@@ -46,7 +46,7 @@
 
 
                 <TextView
-                    android:id="@+id/tv_registration_number"
+                    android:id="@+id/tv_username"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="30sp"

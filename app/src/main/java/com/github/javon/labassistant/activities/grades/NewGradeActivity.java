@@ -19,13 +19,18 @@ import com.github.javon.labassistant.R;
 import com.github.javon.labassistant.dialogs.NewGradeDialog;
 import com.github.javon.labassistant.models.Grade;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class NewGradeActivity extends AppCompatActivity {
 
-    @Bind(R.id.et_registration_number) EditText etRegistrationNumber;
-    @Bind(R.id.tv_registration_number) TextView tvRegistrationNumber;
+    public static final String ARG_USERNAME = "username";
+
+    @Bind(R.id.et_username) EditText etUsername;
+    @Bind(R.id.tv_username) TextView tvUsername;
     @Bind(R.id.recycler_view_grades) RecyclerView rvGrades;
     @Bind(R.id.fab_new_grade) FloatingActionButton fabNewGrade;
     @Bind(R.id.et_grade) EditText etGrade;
@@ -42,6 +47,8 @@ public class NewGradeActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
+        fireUsernameUpdate(getIntent().getStringExtra(ARG_USERNAME));
+
         // set up navigation
         if (null != getSupportActionBar()) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -57,16 +64,18 @@ public class NewGradeActivity extends AppCompatActivity {
 
         rvGrades.setAdapter(mAdapter);
 
-        tvRegistrationNumber.setOnClickListener(v -> {
+        tvUsername.setOnClickListener(v -> {
             v.setVisibility(View.GONE);
-            etRegistrationNumber.setVisibility(View.VISIBLE);
+            etUsername.setVisibility(View.VISIBLE);
             btnSave.setVisibility(View.VISIBLE);
         });
 
         btnSave.setOnClickListener(v -> {
+            fireUsernameUpdate(etUsername.getText().toString());
+
             v.setVisibility(View.GONE);
-            etRegistrationNumber.setVisibility(View.GONE);
-            tvRegistrationNumber.setVisibility(View.VISIBLE);
+            etUsername.setVisibility(View.GONE);
+            tvUsername.setVisibility(View.VISIBLE);
         });
 
         fabNewGrade.setOnClickListener(v -> {
@@ -82,8 +91,22 @@ public class NewGradeActivity extends AppCompatActivity {
         });
     }
 
+    private boolean fireUsernameUpdate(String username) {
+        EventBus.getDefault().post(new UpdateUsernameEvent(username));
+
+        // change this to reflect validation responses
+        return true;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
     @Override
     protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
         mAdapter.cleanup();
         super.onDestroy();
     }
@@ -95,6 +118,25 @@ public class NewGradeActivity extends AppCompatActivity {
         public GradeViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+        }
+    }
+
+    @Subscribe
+    public void onMessageEvent(UpdateUsernameEvent event) {
+        etUsername.setText(event.getUsername());
+        tvUsername.setText(event.getUsername());
+    }
+
+    public class UpdateUsernameEvent {
+
+        String username;
+
+        public UpdateUsernameEvent(String username) {
+            this.username = username;
+        }
+
+        public String getUsername() {
+            return username;
         }
     }
 }

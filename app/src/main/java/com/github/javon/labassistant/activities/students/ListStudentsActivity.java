@@ -4,21 +4,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.firebase.client.Firebase;
 import com.firebase.ui.FirebaseRecyclerAdapter;
 import com.github.javon.labassistant.R;
 import com.github.javon.labassistant.activities.grades.NewGradeActivity;
-import com.github.javon.labassistant.dialogs.NewGradeDialog;
 import com.github.javon.labassistant.models.Student;
 
 import butterknife.Bind;
@@ -29,7 +25,7 @@ public class ListStudentsActivity extends AppCompatActivity {
     @Bind(R.id.coordinatorLayout) CoordinatorLayout coordinatorLayout;
     @Bind(R.id.recycler_view_grades) RecyclerView recyclerViewStudents;
     @Bind(R.id.fab_new_grade) FloatingActionButton fabNewStudent;
-    @Bind(R.id.et_empty_list) EditText emptyText;
+    @Bind(R.id.et_empty_list) TextView emptyText;
     @Bind(R.id.toolbar) Toolbar toolbar;
 
     private FirebaseRecyclerAdapter<Student, StudentViewHolder> mAdapter;
@@ -47,24 +43,35 @@ public class ListStudentsActivity extends AppCompatActivity {
         mAdapter = new FirebaseRecyclerAdapter<Student, StudentViewHolder>(Student.class, android.R.layout.simple_list_item_1, StudentViewHolder.class, refStudent) {
             @Override
             protected void populateViewHolder(StudentViewHolder studentViewHolder, Student student, int i) {
-                studentViewHolder.idText.setText(student.getRegistrationNumber());
+                final String username = student.getRegistrationNumber();
+
+                studentViewHolder.idText.setText(username);
                 studentViewHolder.idText.setOnClickListener(v -> {
-                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                    Fragment prev = getSupportFragmentManager().findFragmentByTag(NewGradeDialog.TAG);
 
-                    if (null != prev) transaction.remove(prev);
+                    openStudentDetailsActivity(username);
 
-                    transaction.addToBackStack(null);
-
-                    NewGradeDialog dialog = NewGradeDialog.newInstance(student.getRegistrationNumber());
-                    dialog.show(transaction, NewGradeDialog.TAG);
+//                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//                    Fragment prev = getSupportFragmentManager().findFragmentByTag(NewGradeDialog.TAG);
+//
+//                    if (null != prev) transaction.remove(prev);
+//
+//                    transaction.addToBackStack(null);
+//
+//                    NewGradeDialog dialog = NewGradeDialog.newInstance(student.getRegistrationNumber());
+//                    dialog.show(transaction, NewGradeDialog.TAG);
                 });
             }
         };
 
         recyclerViewStudents.setAdapter(mAdapter);
 
-        fabNewStudent.setOnClickListener(v -> startActivity(new Intent(ListStudentsActivity.this, NewGradeActivity.class)));
+        fabNewStudent.setOnClickListener(v -> openStudentDetailsActivity(""));
+    }
+
+    private void openStudentDetailsActivity(String username) {
+        Intent intent = new Intent(ListStudentsActivity.this, NewGradeActivity.class);
+        intent.putExtra(NewGradeActivity.ARG_USERNAME, username);
+        startActivity(intent);
     }
 
     public static class StudentViewHolder extends RecyclerView.ViewHolder {
