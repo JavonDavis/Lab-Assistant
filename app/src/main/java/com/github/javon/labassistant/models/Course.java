@@ -1,7 +1,6 @@
 package com.github.javon.labassistant.models;
 
-import java.util.List;
-
+import io.realm.RealmList;
 import io.realm.RealmObject;
 
 /**
@@ -16,8 +15,8 @@ public class Course extends RealmObject {
     private String name;
 
     // Relationships
-    private List<Student> students;
-    private List<Grade> grades;
+    private RealmList<Student> students;
+    private RealmList<Grade> grades;
 
     public Course() {}
 
@@ -31,5 +30,21 @@ public class Course extends RealmObject {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public RealmList<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(RealmList<Student> students) {
+        this.students = students;
+    }
+
+    public RealmList<Grade> getGrades() {
+        return grades;
+    }
+
+    public void setGrades(RealmList<Grade> grades) {
+        this.grades = grades;
     }
 }

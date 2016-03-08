@@ -13,14 +13,12 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 import com.github.javon.labassistant.R;
-import com.github.javon.labassistant.models.Session;
 import com.github.javon.labassistant.activities.general.HomeActivity;
-import com.github.javon.labassistant.activities.general.MainActivity;
-import com.github.javon.labassistant.activities.grades.ListGradesActivity;
+import com.github.javon.labassistant.activities.students.ListStudentsActivity;
 import com.github.javon.labassistant.events.auth.FailedAuthenticationEvent;
 import com.github.javon.labassistant.events.auth.LoginEvent;
+import com.github.javon.labassistant.models.Session;
 import com.github.javon.labassistant.models.User;
-import com.parse.ParseUser;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -52,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
         mSession = new Session(this);
 
         if (mSession.isLoggedIn()) {
-            startActivity(new Intent(this, ListGradesActivity.class));
+            startActivity(new Intent(this, ListStudentsActivity.class));
             finish();
         }
 
@@ -90,24 +88,6 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
         });
-
-
-//        if (ParseUser.getCurrentUser() != null) onLoginSuccessful(); // maybe move this before bindings to no waste memory
-//        mConnected = NetworkUtil.isNetworkAvailable(this);
-//        mSession = new Session(this);
-//
-//        btnNext.setOnClickListener(v -> {
-//            final String id = etIdNumber.getText().toString();
-//            final String password = etPassword.getText().toString();
-//
-//            if (password.isEmpty() || id.isEmpty()) {
-//                Toast.makeText(LoginActivity.this, "Please fill out all fields", Toast.LENGTH_LONG).show();
-//                return;
-//            }
-//
-//            attemptLogin(id, password);
-//
-//        });
     }
 
 
@@ -138,31 +118,8 @@ public class LoginActivity extends AppCompatActivity {
         Toast.makeText(this, "Invalide credentials", Toast.LENGTH_LONG).show();
     }
 
-    /**
-     * There will be a sync issue between session and parse user object
-     *
-     * @param id
-     * @param password
-     */
-    private void attemptLogin(String id, String password) {
-        if (mConnected) {
-            ParseUser.logInInBackground(id, password, (user, e) -> {
-                if (e != null || user == null) {
-                    Toast.makeText(LoginActivity.this, "Login Error", Toast.LENGTH_LONG).show();
-                    return;
-                }
-                mSession.logout();
-            });
-        } else {
-            mSession.login(id, password);
-        }
-
-        if (mSession.isLoggedIn() || ParseUser.getCurrentUser() != null)
-            onLoginSuccessful();
-    }
-
     public void onLoginSuccessful() {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, ListStudentsActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();

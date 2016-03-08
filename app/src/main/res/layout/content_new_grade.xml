@@ -11,12 +11,13 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.github.javon.labassistant.activities.grades.NewGradeActivity"
     tools:showIn="@layout/activity_new_grade"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/colorPrimaryLight">
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColorHint="#ffffff">
+        android:theme="@style/FloatingLabel">
 
         <EditText
             android:id="@+id/et_registration_number"
@@ -24,12 +25,6 @@
             android:layout_height="wrap_content"
             android:hint="Registration Number"
             android:inputType="number"
-            style="@style/LoginEditText"
-            android:backgroundTint="#ffffff"
-            android:textColor="#ffffff"
-            android:textColorHint="#ffffff"
-            android:textColorHighlight="#ffffff"
-            android:textColorLink="#ffffff"
             />
 
     </android.support.design.widget.TextInputLayout>
@@ -38,7 +33,8 @@
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColorHint="#ffffff">
+        android:theme="@style/FloatingLabel"
+        >
 
         <EditText
             android:id="@+id/et_grade"
@@ -47,11 +43,6 @@
             android:hint="Grade"
             android:inputType="number"
             style="@style/LoginEditText"
-            android:backgroundTint="#ffffff"
-            android:textColor="#ffffff"
-            android:textColorHint="#ffffff"
-            android:textColorHighlight="#ffffff"
-            android:textColorLink="#ffffff"
             />
 
     </android.support.design.widget.TextInputLayout>

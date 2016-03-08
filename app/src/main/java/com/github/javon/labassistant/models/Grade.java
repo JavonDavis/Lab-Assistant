@@ -27,4 +27,20 @@ public class Grade extends RealmObject {
     public void setValue(int value) {
         this.value = value;
     }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    public User getLabtech() {
+        return labtech;
+    }
+
+    public void setLabtech(User labtech) {
+        this.labtech = labtech;
+    }
 }

@@ -2,6 +2,7 @@ package com.github.javon.labassistant.models;
 
 import java.util.List;
 
+import io.realm.RealmList;
 import io.realm.RealmObject;
 
 /**
@@ -16,7 +17,7 @@ public class User extends RealmObject{
     private String password;
 
     // These are grades that labtech's have assigned
-    private List<Grade> grades;
+    private RealmList<Grade> grades;
 
     public User() {}
 
@@ -39,6 +40,14 @@ public class User extends RealmObject{
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Grade> getGrades() {
+        return grades;
+    }
+
+    public void setGrades(RealmList<Grade> grades) {
+        this.grades = grades;
     }
 }
 

@@ -78,8 +78,14 @@
         <activity android:name=".activities.grades.ListGradesActivity" />
         <activity
             android:name=".activities.grades.NewGradeActivity"
-            android:label="@string/title_activity_new_grade"
-            android:theme="@style/AppTheme"></activity>
+            android:label="New Student"
+            android:theme="@style/AppTheme">
+        </activity>
+        <activity
+            android:name=".activities.students.ListStudentsActivity"
+            android:label="Students"
+            android:theme="@style/AppTheme">
+        </activity>
     </application>
 
 </manifest>
