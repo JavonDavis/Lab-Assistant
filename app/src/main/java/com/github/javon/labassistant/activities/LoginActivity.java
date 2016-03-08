@@ -3,26 +3,24 @@ package com.github.javon.labassistant.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.firebase.client.AuthData;
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
-import com.firebase.security.token.TokenGenerator;
+import com.firebase.client.ValueEventListener;
 import com.github.javon.labassistant.R;
 import com.github.javon.labassistant.activities.students.ListStudentsActivity;
 import com.github.javon.labassistant.events.auth.FailedAuthenticationEvent;
 import com.github.javon.labassistant.events.auth.LoginEvent;
 import com.github.javon.labassistant.models.Session;
+import com.github.javon.labassistant.models.User;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -46,70 +44,46 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
-        final String username = "620065739";
-        final String password = "SR892";
+        Session session = new Session(this);
 
-        Map<String, Object> payload = new HashMap<>();
-        payload.put("username", username);
-        payload.put("password", password);
+        if (session.isLoggedIn()) {
+            startActivity(new Intent(this, ListStudentsActivity.class));
+            finish();
+        }
 
-        TokenGenerator generator = new TokenGenerator(getString(R.string.firebase_secret));
-        String token = generator.createToken(new JSONObject(payload));
+        btnNext.setOnClickListener(v -> {
+            final String id = etIdNumber.getText().toString();
+            final String password = etPassword.getText().toString();
 
-        myRef.authWithCustomToken(token, new Firebase.AuthResultHandler() {
-            @Override
-            public void onAuthenticated(AuthData authData) {
-                EventBus.getDefault().post(new LoginEvent(username, password, authData.getToken()));
+            if (id.isEmpty() || password.isEmpty()) {
+                Toast.makeText(LoginActivity.this, "Both the username and password must be entered", Toast.LENGTH_LONG).show();
+                return;
             }
 
-            @Override
-            public void onAuthenticationError(FirebaseError error) {
-                Toast.makeText(LoginActivity.this, "error sign in: " + error.getMessage(), Toast.LENGTH_LONG).show();
-            }
+            myRef.push().setValue(new User(id, password));
+
+            myRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    Log.d(TAG, dataSnapshot.getChildrenCount() + " users");
+
+                    for (DataSnapshot userSnapshot: dataSnapshot.getChildren()) {
+                        User user = userSnapshot.getValue(User.class);
+                        if (id.equals(user.getRegistrationNumber())) {
+                            EventBus.getDefault().post(new LoginEvent(user.getRegistrationNumber(), user.getPassword()));
+                            Log.d(TAG, "Here with id: " + id + " and " + user.getRegistrationNumber());
+                            return;
+                        }
+                    }
+                    EventBus.getDefault().post(new FailedAuthenticationEvent());
+                }
+
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+                    Log.d(TAG, "The read failed: " + firebaseError.getMessage());
+                }
+            });
         });
-
-
-//        mSession = new Session(this);
-//
-//        if (mSession.isLoggedIn()) {
-//            startActivity(new Intent(this, ListStudentsActivity.class));
-//            finish();
-//        }
-//
-//
-//        btnNext.setOnClickListener(v -> {
-//            final String id = etIdNumber.getText().toString();
-//            final String password = etPassword.getText().toString();
-//
-//            if (id.isEmpty() || password.isEmpty()) {
-//                Toast.makeText(LoginActivity.this, "Both the username and password must be entered", Toast.LENGTH_LONG).show();
-//                return;
-//            }
-//
-////            ref.push().setValue(new User(id, password));
-//
-//            ref.addValueEventListener(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(DataSnapshot dataSnapshot) {
-//                    Log.d(TAG, dataSnapshot.getChildrenCount() + " users");
-//
-//                    for (DataSnapshot userSnapshot: dataSnapshot.getChildren()) {
-//                        User user = userSnapshot.getValue(User.class);
-//                        if (id.equals(user.getRegistrationNumber())) {
-//                            EventBus.getDefault().post(new LoginEvent(user.getRegistrationNumber(), user.getPassword()));
-//                            Log.d(TAG, "Here with id: " + id + " and " + user.getRegistrationNumber());
-//                            return;
-//                        }
-//                    }
-//                    EventBus.getDefault().post(new FailedAuthenticationEvent());
-//                }
-//
-//                @Override
-//                public void onCancelled(FirebaseError firebaseError) {
-//                    Log.d(TAG, "The read failed: " + firebaseError.getMessage());
-//                }
-//            });
-//        });
     }
 
 
