@@ -12,15 +12,15 @@ public class Grade extends RealmObject {
 
     private int value;
     private int labNumber;
-    private Student student;
+    private String timestamp;
     private User grader;
 
     public Grade() {}
 
-    public Grade(int value, int labNumber, Student student, User grader) {
+    public Grade(int value, int labNumber, String timestamp, User grader) {
         this.value = value;
         this.labNumber = labNumber;
-        this.student = student;
+        this.timestamp = timestamp;
         this.grader = grader;
     }
 
@@ -30,14 +30,6 @@ public class Grade extends RealmObject {
 
     public void setValue(int value) {
         this.value = value;
-    }
-
-    public Student getStudent() {
-        return student;
-    }
-
-    public void setStudent(Student student) {
-        this.student = student;
     }
 
     public int getLabNumber() {
@@ -54,5 +46,13 @@ public class Grade extends RealmObject {
 
     public void setGrader(User grader) {
         this.grader = grader;
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
     }
 }

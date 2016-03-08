@@ -34,8 +34,6 @@ public class LoginActivity extends AppCompatActivity {
     @Bind(R.id.et_password) EditText etPassword;
     @Bind(R.id.btn_next) Button btnNext;
 
-    Firebase myRef = new Firebase("https://labtech.firebaseio.com");
-
     private boolean mConnected = false;
 
     @Override
@@ -99,8 +97,9 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        myRef.push().setValue(new User(username, password));
+        Firebase myRef = new Firebase("https://labtech.firebaseio.com");
 
+        myRef.push().setValue(new User(username, password));
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

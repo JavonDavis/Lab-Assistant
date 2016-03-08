@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +18,7 @@ import com.firebase.client.Firebase;
 import com.firebase.ui.FirebaseRecyclerAdapter;
 import com.github.javon.labassistant.R;
 import com.github.javon.labassistant.activities.grades.NewGradeActivity;
+import com.github.javon.labassistant.dialogs.NewGradeDialog;
 import com.github.javon.labassistant.models.Student;
 
 import butterknife.Bind;
@@ -25,7 +28,7 @@ public class ListStudentsActivity extends AppCompatActivity {
 
     @Bind(R.id.coordinatorLayout) CoordinatorLayout coordinatorLayout;
     @Bind(R.id.recycler_view_grades) RecyclerView recyclerViewStudents;
-    @Bind(R.id.fab_new_grade) FloatingActionButton fadNewStudent;
+    @Bind(R.id.fab_new_grade) FloatingActionButton fabNewStudent;
     @Bind(R.id.et_empty_list) EditText emptyText;
     @Bind(R.id.toolbar) Toolbar toolbar;
 
@@ -45,14 +48,23 @@ public class ListStudentsActivity extends AppCompatActivity {
             @Override
             protected void populateViewHolder(StudentViewHolder studentViewHolder, Student student, int i) {
                 studentViewHolder.idText.setText(student.getRegistrationNumber());
+                studentViewHolder.idText.setOnClickListener(v -> {
+                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                    Fragment prev = getSupportFragmentManager().findFragmentByTag(NewGradeDialog.TAG);
+
+                    if (null != prev) transaction.remove(prev);
+
+                    transaction.addToBackStack(null);
+
+                    NewGradeDialog dialog = NewGradeDialog.newInstance(student.getRegistrationNumber());
+                    dialog.show(transaction, NewGradeDialog.TAG);
+                });
             }
         };
 
         recyclerViewStudents.setAdapter(mAdapter);
 
-        fadNewStudent.setOnClickListener(v -> startActivity(new Intent(ListStudentsActivity.this, NewGradeActivity.class)));
-
-
+        fabNewStudent.setOnClickListener(v -> startActivity(new Intent(ListStudentsActivity.this, NewGradeActivity.class)));
     }
 
     public static class StudentViewHolder extends RecyclerView.ViewHolder {

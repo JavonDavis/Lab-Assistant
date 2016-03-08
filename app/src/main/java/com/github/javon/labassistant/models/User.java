@@ -13,7 +13,7 @@ import io.realm.RealmObject;
  */
 public class User extends RealmObject{
 
-    private String registrationNumber;
+    private String username;
     private String password;
 
     // These are grades that labtech's have assigned
@@ -21,21 +21,25 @@ public class User extends RealmObject{
 
     public User() {}
 
-    public User(String registrationNumber, String password) {
-        this.registrationNumber = registrationNumber;
+    public User(String username, String password) {
+        this.username = username;
         this.password = password;
     }
 
+    public User(String username) {
+        this(username, "");
+    }
+
     public String getUsername() {
-        return registrationNumber;
+        return username;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public void setRegistrationNumber(String registrationNumber) {
-        this.registrationNumber = registrationNumber;
+    public void setUsername(String registrationNumber) {
+        this.username = registrationNumber;
     }
 
     public void setPassword(String password) {

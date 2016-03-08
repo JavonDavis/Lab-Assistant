@@ -13,7 +13,9 @@ import android.widget.Spinner;
 
 import com.firebase.client.Firebase;
 import com.github.javon.labassistant.R;
+import com.github.javon.labassistant.models.Grade;
 import com.github.javon.labassistant.models.Session;
+import com.github.javon.labassistant.models.User;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -27,9 +29,12 @@ import butterknife.ButterKnife;
 public class NewGradeDialog extends DialogFragment {
 
     public static final String TAG = "new_grade_dialog";
+    public static final String ARG_USERNAME = "username";
+
+    // text
+    @Bind(R.id.et_username) EditText etUsername;
 
     // spinners
-    @Bind(R.id.et_registration_number) EditText etRegistrationNumber;
     @Bind(R.id.spinner_course) Spinner spinnerCourse;
     @Bind(R.id.spinner_grade) Spinner spinnerGrade;
     @Bind(R.id.spinner_lab) Spinner spinnerLab;
@@ -39,15 +44,24 @@ public class NewGradeDialog extends DialogFragment {
     @Bind(R.id.btn_confirm) Button btnConfirm;
 
     private Firebase refStudents = new Firebase("https://labtech.firebaseio.com/students");
+    private String username;
+
+    public static NewGradeDialog newInstance(String username) {
+        NewGradeDialog dialog = new NewGradeDialog();
+        Bundle args = new Bundle();
+        args.putString(ARG_USERNAME, username);
+        dialog.setArguments(args);
+        return dialog;
+    }
 
     public static NewGradeDialog newInstance() {
-        NewGradeDialog dialog = new NewGradeDialog();
-        return dialog;
+        return new NewGradeDialog();
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        username = getArguments().getString(ARG_USERNAME, "");
     }
 
     @Nullable
@@ -56,6 +70,8 @@ public class NewGradeDialog extends DialogFragment {
         View rootView = inflater.inflate(R.layout.dialog_new_grade, container, false);
         ButterKnife.bind(this, rootView);
 
+        etUsername.setText(username);
+
         spinnerCourse.setAdapter(createAdapter(R.array.course_array));
         spinnerGrade.setAdapter(createAdapter(R.array.grade_array));
         spinnerLab.setAdapter(createAdapter(R.array.lab_array));
@@ -63,26 +79,26 @@ public class NewGradeDialog extends DialogFragment {
         btnCancel.setOnClickListener(v -> NewGradeDialog.this.dismiss());
         btnConfirm.setOnClickListener(v -> {
 
-            final String registrationNumber = etRegistrationNumber.getText().toString();
+            final String username = etUsername.getText().toString();
             final String course = (String) spinnerCourse.getSelectedItem();
             final int lab = (null == spinnerLab.getSelectedItem()) ? -1 : (int) spinnerLab.getSelectedItem();
             final int score = (null == spinnerGrade.getSelectedItem()) ? -1 : (int) spinnerGrade.getSelectedItem();
 
-            if (!registrationNumber.isEmpty() && !course.isEmpty() && (lab != -1) && (score != -1)) {
+            if (!username.isEmpty() && !course.isEmpty() && (lab != -1) && (score != -1)) {
                 // create a record of the particular student
-                Firebase student = refStudents.child(registrationNumber);
+                Firebase student = refStudents.child(username);
 
                 // creating a timestamp
                 final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 final Date timestamp = new Date();
 
                 Session session = new Session(getActivity());
+                User marker = new User(session.getUsername());
+                Grade newGrade = new Grade(score, lab, dateFormat.format(timestamp), marker);
 
+                student.push().setValue(newGrade);
 
-
-//                Grade newGrade = new Grade(score, lab, dateFormat.format(timestamp), );
-
-//                student.push().setValue(newGrade);
+                NewGradeDialog.this.dismiss();
             }
         });
 
