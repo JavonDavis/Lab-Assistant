@@ -1,23 +1,21 @@
 package com.github.javon.labassistant.models;
 
-import io.realm.RealmObject;
-
 /**
  * Created by shane on 3/5/16.
  *
  * This class represents each grade assigned to a student for each lab
  * attempted.
  */
-public class Grade extends RealmObject {
+public class Grade {
 
     private int value;
     private int labNumber;
     private String timestamp;
-    private User grader;
+    private String grader;
 
     public Grade() {}
 
-    public Grade(int value, int labNumber, String timestamp, User grader) {
+    public Grade(int value, int labNumber, String timestamp, String grader) {
         this.value = value;
         this.labNumber = labNumber;
         this.timestamp = timestamp;
@@ -40,13 +38,18 @@ public class Grade extends RealmObject {
         this.labNumber = lab;
     }
 
-    public User getGrader() {
+    public String getGrader() {
         return grader;
     }
 
     public void setGrader(User grader) {
-        this.grader = grader;
+        this.grader = grader.getUsername();
     }
+
+    public void setGrader(String username) {
+        grader = username;
+    }
+
 
     public String getTimestamp() {
         return timestamp;

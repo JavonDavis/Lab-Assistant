@@ -54,7 +54,7 @@ public class NewGradeActivity extends AppCompatActivity {
 
         rvGrades.setLayoutManager(new LinearLayoutManager(this));
 
-        mAdapter = new FirebaseRecyclerAdapter<Grade, GradeViewHolder>(Grade.class, android.R.layout.simple_list_item_2, GradeViewHolder.class, refGrades) {
+        mAdapter = new FirebaseRecyclerAdapter<Grade, GradeViewHolder>(Grade.class, android.R.layout.two_line_list_item, GradeViewHolder.class, refGrades) {
             @Override
             protected void populateViewHolder(GradeViewHolder gradeViewHolder, Grade grade, int i) {
                 gradeViewHolder.labText.setText("Lab: " + grade.getLabNumber());
@@ -94,7 +94,7 @@ public class NewGradeActivity extends AppCompatActivity {
     private boolean fireUsernameUpdate(String username) {
         EventBus.getDefault().post(new UpdateUsernameEvent(username));
 
-        // change this to reflect validation responses
+        // TODO change this to reflect validation responses
         return true;
     }
 
@@ -129,7 +129,7 @@ public class NewGradeActivity extends AppCompatActivity {
 
     public class UpdateUsernameEvent {
 
-        String username;
+        private String username;
 
         public UpdateUsernameEvent(String username) {
             this.username = username;
@@ -137,6 +137,16 @@ public class NewGradeActivity extends AppCompatActivity {
 
         public String getUsername() {
             return username;
+        }
+
+        public boolean isValid() {
+            try {
+                Integer.parseInt(username); // ensure the username is a number
+            } catch (NumberFormatException e) {
+                return false;
+            }
+
+            return 9 == username.length();
         }
     }
 }

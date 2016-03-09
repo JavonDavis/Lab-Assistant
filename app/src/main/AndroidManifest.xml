@@ -80,6 +80,9 @@
             android:name=".activities.grades.NewGradeActivity"
             android:label="New Student"
             android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.grades.ListGradesActivity" />
         </activity>
         <activity
             android:name=".activities.students.ListStudentsActivity"

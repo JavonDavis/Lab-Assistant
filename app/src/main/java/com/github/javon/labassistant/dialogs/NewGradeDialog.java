@@ -15,7 +15,6 @@ import com.firebase.client.Firebase;
 import com.github.javon.labassistant.R;
 import com.github.javon.labassistant.models.Grade;
 import com.github.javon.labassistant.models.Session;
-import com.github.javon.labassistant.models.User;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -82,8 +81,8 @@ public class NewGradeDialog extends DialogFragment {
 
             final String username = etUsername.getText().toString();
             final String course = (String) spinnerCourse.getSelectedItem();
-            final int lab = (null == spinnerLab.getSelectedItem()) ? -1 : (int) spinnerLab.getSelectedItem();
-            final int score = (null == spinnerGrade.getSelectedItem()) ? -1 : (int) spinnerGrade.getSelectedItem();
+            final int lab = (null == spinnerLab.getSelectedItem()) ? -1 : Integer.parseInt((String) spinnerLab.getSelectedItem());
+            final int score = (null == spinnerGrade.getSelectedItem()) ? -1 : Integer.parseInt((String) spinnerGrade.getSelectedItem());
 
             if (!username.isEmpty() && !course.isEmpty() && (lab != -1) && (score != -1)) {
                 // create a record of the particular student
@@ -94,11 +93,8 @@ public class NewGradeDialog extends DialogFragment {
                 final Date timestamp = new Date();
 
                 Session session = new Session(getActivity());
-                User marker = new User(session.getUsername());
-                Grade newGrade = new Grade(score, lab, dateFormat.format(timestamp), marker);
-
+                Grade newGrade = new Grade(score, lab, dateFormat.format(timestamp), session.getUsername());
                 student.push().setValue(newGrade);
-
                 NewGradeDialog.this.dismiss();
             }
         });

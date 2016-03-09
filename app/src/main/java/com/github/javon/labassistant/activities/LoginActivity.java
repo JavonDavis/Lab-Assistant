@@ -3,15 +3,15 @@ package com.github.javon.labassistant.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
+import com.firebase.client.Query;
 import com.github.javon.labassistant.R;
 import com.github.javon.labassistant.activities.students.ListStudentsActivity;
 import com.github.javon.labassistant.events.auth.LoginFailedEvent;
@@ -34,20 +34,14 @@ public class LoginActivity extends AppCompatActivity {
     @Bind(R.id.et_password) EditText etPassword;
     @Bind(R.id.btn_next) Button btnNext;
 
-    private boolean mConnected = false;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        checkUserLogin(); // skips setting up the view if the user is already logs in
+
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-
-        Session session = new Session(this);
-
-        if (session.isLoggedIn()) {
-            startActivity(new Intent(this, ListStudentsActivity.class));
-            finish();
-        }
 
         btnNext.setOnClickListener(v -> attemptManualLogin());
     }
@@ -67,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
 
     @Subscribe
     public void onMessageEvent(LoginSuccessfulEvent event) {
-        Session session = new Session(this);
+        final Session session = new Session(this);
 
         session.setUsername(event.getUsername());
         session.setPassword(event.getPassword());
@@ -82,9 +76,19 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void loginSuccessful() {
-        Intent intent = new Intent(this, ListStudentsActivity.class);
+        final Intent intent = new Intent(this, ListStudentsActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+        finish();
+    }
+
+    private void checkUserLogin() {
+        final Session session = new Session(this);
+
+        // guard
+        if (!session.isLoggedIn()) return;
+
+        startActivity(new Intent(this, ListStudentsActivity.class));
         finish();
     }
 
@@ -97,28 +101,39 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        Firebase myRef = new Firebase("https://labtech.firebaseio.com");
+        final Firebase userRef = new Firebase("https://labtech.firebaseio.com/users");
+        Query queryRef = userRef.orderByChild("username").equalTo(username);
 
-        myRef.push().setValue(new User(username, password));
-        myRef.addValueEventListener(new ValueEventListener() {
+        queryRef.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d(TAG, dataSnapshot.getChildrenCount() + " users");
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                User user = dataSnapshot.getValue(User.class);
 
-                for (DataSnapshot userSnapshot: dataSnapshot.getChildren()) {
-                    User user = userSnapshot.getValue(User.class);
-                    if (username.equals(user.getUsername())) {
-                        EventBus.getDefault().post(new LoginSuccessfulEvent(user.getUsername(), user.getPassword()));
-                        Log.d(TAG, "Here with username: " + username);
-                        return;
-                    }
-                }
-                EventBus.getDefault().post(new LoginFailedEvent());
+                if (user.getPassword().equals(password))
+                    EventBus.getDefault()
+                        .post(new LoginSuccessfulEvent(user.getUsername(), user.getPassword()));
+                else
+                    EventBus.getDefault().post(new LoginFailedEvent());
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                // nothing
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                // nothing
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                // nothing
             }
 
             @Override
             public void onCancelled(FirebaseError firebaseError) {
-                Log.d(TAG, "The read failed: " + firebaseError.getMessage());
+                // nothing
             }
         });
     }

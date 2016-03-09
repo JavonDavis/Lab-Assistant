@@ -31,6 +31,7 @@ public class ListStudentsActivity extends AppCompatActivity {
     private FirebaseRecyclerAdapter<Student, StudentViewHolder> mAdapter;
     private Firebase refStudent = new Firebase("https://labtech.firebaseio.com/students");
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +41,9 @@ public class ListStudentsActivity extends AppCompatActivity {
 
         recyclerViewStudents.setLayoutManager(new LinearLayoutManager(this));
 
-        mAdapter = new FirebaseRecyclerAdapter<Student, StudentViewHolder>(Student.class, android.R.layout.simple_list_item_1, StudentViewHolder.class, refStudent) {
+
+
+        mAdapter = new FirebaseRecyclerAdapter<Student, StudentViewHolder>(Student.class, R.layout.item_student, StudentViewHolder.class, refStudent) {
             @Override
             protected void populateViewHolder(StudentViewHolder studentViewHolder, Student student, int i) {
                 final String username = student.getRegistrationNumber();
@@ -75,7 +78,7 @@ public class ListStudentsActivity extends AppCompatActivity {
     }
 
     public static class StudentViewHolder extends RecyclerView.ViewHolder {
-        @Bind(android.R.id.text1) TextView idText;
+        @Bind(R.id.tv_student_id) TextView idText;
 
         public StudentViewHolder(View itemView) {
             super(itemView);

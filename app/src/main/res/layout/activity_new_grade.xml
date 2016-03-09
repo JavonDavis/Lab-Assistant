@@ -26,6 +26,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginStart="16dp"
                 android:orientation="horizontal"
+                android:gravity="bottom|start"
                 >
 
                 <android.support.design.widget.TextInputLayout
@@ -37,7 +38,7 @@
                         android:id="@+id/et_username"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Registration Number"
+                        android:hint="@string/registration_number"
                         android:textSize="30sp"
                         android:inputType="number"
                         />
