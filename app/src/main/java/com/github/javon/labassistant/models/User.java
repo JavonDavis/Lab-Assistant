@@ -1,5 +1,7 @@
 package com.github.javon.labassistant.models;
 
+import com.github.javon.labassistant.models.builder.UserBuilder;
+
 /**
  * Created by shane on 3/5/16.
  *
@@ -8,16 +10,25 @@ package com.github.javon.labassistant.models;
  */
 public class User {
 
+    private String firstName;
+    private String lastName;
     private String username;
     private String password;
 
-    // These are grades that labtech's have assigned
-
-    public User() {}
+    public User() {
+        // required by firebase
+    }
 
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+    }
+
+    public User(UserBuilder builder) {
+        this.username = builder.username;
+        this.password = builder.password;
+        this.firstName = builder.firstName;
+        this.lastName = builder.lastName;
     }
 
     public User(String username) {
@@ -32,12 +43,20 @@ public class User {
         return password;
     }
 
-    public void setUsername(String registrationNumber) {
-        this.username = registrationNumber;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 }
 

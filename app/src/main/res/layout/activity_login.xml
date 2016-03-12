@@ -74,7 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/connect"
-            android:background="@color/colorPrimaryLight"
+            android:background="@drawable/button_general"
             android:textColor="@android:color/white"
             android:layout_marginTop="30dp"/>
 

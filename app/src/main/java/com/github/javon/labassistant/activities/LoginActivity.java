@@ -99,23 +99,28 @@ public class LoginActivity extends AppCompatActivity {
         final String password = etPassword.getText().toString();
 
         if (username.isEmpty() || password.isEmpty()) {
-            Toast.makeText(LoginActivity.this, "Both the username and password must be entered", Toast.LENGTH_LONG).show();
+            Toast.makeText(LoginActivity.this, "Enter username and password", Toast.LENGTH_LONG).show();
             return;
         }
 
         final Firebase userRef = new Firebase("https://labtech.firebaseio.com/users");
+
         Query queryRef = userRef.orderByChild("username").equalTo(username);
+
 
         queryRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 User user = dataSnapshot.getValue(User.class);
 
-                if (user.getPassword().equals(password))
-                    EventBus.getDefault()
-                        .post(new LoginSuccessfulEvent(user.getUsername(), user.getPassword()));
-                else
+                if (! user.getPassword().equals(password)) {
                     EventBus.getDefault().post(new LoginFailedEvent());
+                    return;
+                }
+
+                Toast.makeText(LoginActivity.this, "Username " + user.getUsername() + " password " + user.getPassword() , Toast.LENGTH_LONG).show();
+                EventBus.getDefault()
+                        .post(new LoginSuccessfulEvent(user.getUsername(), user.getPassword()));
             }
 
             @Override
