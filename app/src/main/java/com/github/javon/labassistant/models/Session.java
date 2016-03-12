@@ -20,6 +20,10 @@ public class Session {
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
+    public static Session newInstance(Context ctx) {
+        return new Session(ctx);
+    }
+
     public void setUsername(String username) {
         save(KEY_USERNAME, username);
     }

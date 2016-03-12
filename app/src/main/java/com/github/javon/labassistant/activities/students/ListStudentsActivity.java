@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.firebase.client.Firebase;
@@ -49,7 +50,7 @@ public class ListStudentsActivity extends AppCompatActivity {
                 final String username = student.getRegistrationNumber();
 
                 studentViewHolder.idText.setText(username);
-                studentViewHolder.idText.setOnClickListener(v -> {
+                studentViewHolder.containerLayout.setOnClickListener(v -> {
 
                     openStudentDetailsActivity(username);
 
@@ -79,6 +80,7 @@ public class ListStudentsActivity extends AppCompatActivity {
 
     public static class StudentViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.tv_student_id) TextView idText;
+        @Bind(R.id.container) LinearLayout containerLayout;
 
         public StudentViewHolder(View itemView) {
             super(itemView);

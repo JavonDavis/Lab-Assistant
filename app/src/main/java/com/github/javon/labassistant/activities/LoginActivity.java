@@ -85,8 +85,10 @@ public class LoginActivity extends AppCompatActivity {
     private void checkUserLogin() {
         final Session session = new Session(this);
 
+        session.logout();
+
         // guard
-        if (!session.isLoggedIn()) return;
+        if (! Session.newInstance(this).isLoggedIn()) return;
 
         startActivity(new Intent(this, ListStudentsActivity.class));
         finish();
