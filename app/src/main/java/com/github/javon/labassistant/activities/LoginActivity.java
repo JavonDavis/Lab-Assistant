@@ -83,12 +83,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void checkUserLogin() {
-        final Session session = new Session(this);
-
-        session.logout();
-
-        // guard
-        if (! Session.newInstance(this).isLoggedIn()) return;
+        if (! Session.newInstance(this).isLoggedIn()) return; // guard
 
         startActivity(new Intent(this, ListStudentsActivity.class));
         finish();
@@ -106,7 +101,6 @@ public class LoginActivity extends AppCompatActivity {
         final Firebase userRef = new Firebase("https://labtech.firebaseio.com/users");
 
         Query queryRef = userRef.orderByChild("username").equalTo(username);
-
 
         queryRef.addChildEventListener(new ChildEventListener() {
             @Override
