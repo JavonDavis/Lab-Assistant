@@ -1,5 +1,6 @@
 package com.github.javon.labassistant.fragments;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,10 +14,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.javon.labassistant.R;
+import com.github.javon.labassistant.classes.helpers.barcode.BarcodeTrackerFactory;
+import com.github.javon.labassistant.classes.helpers.barcode.CameraSourcePreview;
+import com.github.javon.labassistant.classes.helpers.barcode.GraphicOverlay;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.vision.CameraSource;
+import com.google.android.gms.vision.MultiProcessor;
+import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+
+import java.io.IOException;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,7 +47,13 @@ public class IDNumberFragment extends Fragment {
     private String mGradeTableName;
     private int mLabCount;
 
+    private EditText idNumberField;
+
     private onStudentFoundListener mListener;
+
+    private CameraSourcePreview mPreview;
+    private GraphicOverlay mGraphicOverlay;
+    private CameraSource mCameraSource = null;
 
     public IDNumberFragment() {
         // Required empty public constructor
@@ -77,6 +94,8 @@ public class IDNumberFragment extends Fragment {
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_idnumber, container, false);
 
+        idNumberField = (EditText) view.findViewById(R.id.id_number);
+
         TextView title = (TextView) view.findViewById(R.id.course_title);
         title.setText(mCourse);
 
@@ -84,13 +103,28 @@ public class IDNumberFragment extends Fragment {
         manualButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText idNumberField = (EditText) view.findViewById(R.id.id_number);
                 String idNumber = idNumberField.getText().toString();
                 checkID(idNumber);
 
             }
         });
+
+        mPreview = (CameraSourcePreview) view.findViewById(R.id.preview);
+        mGraphicOverlay = (GraphicOverlay) view.findViewById(R.id.overlay);
+
+        createCameraSource();
+
         return view;
+    }
+
+    public void setIDField(final String idNumber)
+    {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                idNumberField.setText(idNumber);
+            }
+        });
     }
 
     private void checkID(final String idNumber)
@@ -110,8 +144,7 @@ public class IDNumberFragment extends Fragment {
                     if(e.getCode() == ParseException.OBJECT_NOT_FOUND)
                     {
                         Log.d("Student not found",idNumber+" not found in "+mGradeTableName+" table");
-                        Toast.makeText(getActivity(),"Student "+idNumber+" Not found",Toast.LENGTH_LONG).show();
-
+                        mListener.onStudentNotFound(mCourse,idNumber,mGradeTableName);
                     }
                     else
                     {
@@ -153,6 +186,123 @@ public class IDNumberFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface onStudentFoundListener {
-        void onStudentFound(String coursename, ParseObject object, int labCount);
+        void onStudentFound(String courseName, ParseObject object, int labCount);
+        void onStudentNotFound(String courseName, String id, String tableName);
+    }
+
+    /**
+     * Restarts the camera.
+     */
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        startCameraSource();
+    }
+
+    /**
+     * Stops the camera.
+     */
+    @Override
+    public void onPause() {
+        super.onPause();
+        if(mPreview!=null)
+            mPreview.stop();
+    }
+
+    /**
+     * Releases the resources associated with the camera source, the associated detectors, and the
+     * rest of the processing pipeline.
+     */
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mCameraSource != null) {
+            mCameraSource.release();
+        }
+    }
+
+    /**
+     * Creates and starts the camera.  Note that this uses a higher resolution in comparison
+     * to other detection examples to enable the barcode detector to detect small barcodes
+     * at long distances.
+     */
+    private void createCameraSource() {
+
+
+        Context context = getActivity().getApplicationContext();
+
+
+
+        // A barcode detector is created to track barcodes.  An associated multi-processor instance
+        // is set to receive the barcode detection results, track the barcodes, and maintain
+        // graphics for each barcode on screen.  The factory is used by the multi-processor to
+        // create a separate tracker instance for each barcode.
+        BarcodeDetector barcodeDetector = new BarcodeDetector.Builder(context).build();
+        BarcodeTrackerFactory barcodeFactory = new BarcodeTrackerFactory(this,mGraphicOverlay);
+        barcodeDetector.setProcessor(
+                new MultiProcessor.Builder<>(barcodeFactory).build());
+
+        // A multi-detector groups the two detectors together as one detector.  All images received
+        // by this detector from the camera will be sent to each of the underlying detectors, which
+        // will each do face and barcode detection, respectively.  The detection results from each
+        // are then sent to associated tracker instances which maintain per-item graphics on the
+        // screen.
+//        MultiDetector multiDetector = new MultiDetector.Builder()
+//                .add(barcodeDetector)
+//                .build();
+
+        /*if (!multiDetector.isOperational()) {
+            // Note: The first time that an app using the barcode or face API is installed on a
+            // device, GMS will download a native libraries to the device in order to do detection.
+            // Usually this completes before the app is run for the first time.  But if that
+            // download has not yet completed, then the above call will not detect any barcodes
+            // and/or faces.
+            //
+            // isOperational() can be used to check if the required native libraries are currently
+            // available.  The detectors will automatically become operational once the library
+            // downloads complete on device.
+            Log.w("Detector", "Detector dependencies are not yet available.");
+        }*/
+
+        // Creates and starts the camera.  Note that this uses a higher resolution in comparison
+        // to other detection examples to enable the barcode detector to detect small barcodes
+        // at long distances.
+        mCameraSource = new CameraSource.Builder(context, barcodeDetector)
+                .setFacing(CameraSource.CAMERA_FACING_BACK)
+                .setRequestedPreviewSize(1600, 1024)
+                .setRequestedFps(15.0f)
+                .build();
+
+        startCameraSource();
+
+    }
+
+
+    /**
+     * Starts or restarts the camera source, if it exists.  If the camera source doesn't exist yet
+     * (e.g., because onResume was called before the camera source was created), this will be called
+     * again when the camera source is created.
+     */
+    private void startCameraSource() {
+
+        // check that the device has play services available.
+        int code = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(
+                getActivity().getApplicationContext());
+        if (code != ConnectionResult.SUCCESS) {
+            Dialog dlg =
+                    GoogleApiAvailability.getInstance().getErrorDialog(getActivity(), code, 0);
+            dlg.show();
+        }
+
+        if (mCameraSource != null) {
+            try {
+                mPreview.start(mCameraSource,mGraphicOverlay);
+            } catch (IOException e) {
+                Log.e("Camera source", "Unable to start camera source.", e);
+                mCameraSource.release();
+                mCameraSource = null;
+            }
+        }
     }
 }
