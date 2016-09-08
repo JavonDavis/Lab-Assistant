@@ -8,17 +8,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.javon.labassistant.R;
-import com.github.javon.labassistant.classes.CourseViewHolder;
-import com.github.javon.labassistant.classes.RecyclerItemClickListener;
+import com.github.javon.labassistant.classes.helpers.RecyclerItemClickListener;
+import com.github.javon.labassistant.classes.holders.CourseViewHolder;
 import com.javon.parserecyclerviewadapter.ParseRecyclerQueryAdapter;
-import com.javon.parserecyclerviewadapter.annotations.Layout;
-import com.javon.parserecyclerviewadapter.annotations.ParseName;
 import com.parse.ParseObject;
-import com.parse.ParseQueryAdapter;
 
 
 /**
@@ -66,8 +61,9 @@ public class CourseFragment extends Fragment {
         mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Toast.makeText(getActivity(),adapter.getItem(position).getString("title"),Toast.LENGTH_LONG).show();
-                mListener.onCourseSelected(adapter.getItem(position).getString("title"));
+                mListener.onCourseSelected(adapter.getItem(position).getString("title"),
+                        adapter.getItem(position).getInt("lab_count"),
+                        adapter.getItem(position).getString("grade_table_name"));
             }
         }));
         mRecyclerView.setAdapter(adapter);
@@ -102,6 +98,6 @@ public class CourseFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnCourseSelectedListener {
-        void onCourseSelected(String courseName);
+        void onCourseSelected(String courseName, int labCount, String gradeTableName);
     }
 }

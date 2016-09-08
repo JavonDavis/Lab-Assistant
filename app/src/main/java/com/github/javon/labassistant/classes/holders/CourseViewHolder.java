@@ -1,4 +1,4 @@
-package com.github.javon.labassistant.classes;
+package com.github.javon.labassistant.classes.holders;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

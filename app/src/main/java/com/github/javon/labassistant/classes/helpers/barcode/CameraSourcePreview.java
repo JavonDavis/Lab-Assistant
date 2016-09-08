@@ -1,4 +1,4 @@
-package com.github.javon.labassistant.classes;
+package com.github.javon.labassistant.classes.helpers.barcode;
 
 import android.content.Context;
 import android.content.res.Configuration;

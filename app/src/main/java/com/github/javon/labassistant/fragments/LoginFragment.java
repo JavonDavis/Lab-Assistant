@@ -1,7 +1,6 @@
 package com.github.javon.labassistant.fragments;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.javon.labassistant.R;
 
@@ -86,7 +85,18 @@ public class LoginFragment extends Fragment {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.onLoginAttempted(usernameField.getText().toString(),passwordField.getText().toString());
+                String username = usernameField.getText().toString();
+                String password = passwordField.getText().toString();
+
+                if(username.isEmpty() || password.isEmpty())
+                {
+                    Toast.makeText(getActivity(),"Both username and password must be entered",Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    mListener.onLoginAttempted(username,password);
+                }
+
             }
         });
 

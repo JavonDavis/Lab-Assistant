@@ -26,18 +26,18 @@
                 android:layout_marginBottom="10dp"
                 android:layout_gravity="center"/>
 
-            <com.github.javon.labassistant.classes.CameraSourcePreview
+            <com.github.javon.labassistant.classes.helpers.barcode.CameraSourcePreview
                 android:id="@+id/preview"
                 android:layout_width="fill_parent"
                 android:layout_height="match_parent">
 
-                <com.github.javon.labassistant.classes.GraphicOverlay
+                <com.github.javon.labassistant.classes.helpers.barcode.GraphicOverlay
                     android:id="@+id/faceOverlay"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     />
 
-            </com.github.javon.labassistant.classes.CameraSourcePreview>
+            </com.github.javon.labassistant.classes.helpers.barcode.CameraSourcePreview>
         </LinearLayout>
 
         <TextView

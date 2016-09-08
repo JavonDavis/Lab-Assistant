@@ -1,22 +1,16 @@
 package com.github.javon.labassistant.activities;
 
 import android.content.Intent;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.transition.Explode;
-import android.transition.TransitionInflater;
-import android.view.View;
-import android.widget.TextView;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.github.javon.labassistant.R;
 import com.github.javon.labassistant.fragments.LoginFragment;
 import com.github.javon.labassistant.fragments.ProgressFragment;
+import com.parse.ParseUser;
 
 public class LoginActivity extends AppCompatActivity implements LoginFragment.OnLoginAttemptedListener, ProgressFragment.OnLoginProgressListener {
-
-    private TextView usernameField;
-    private TextView passwordField;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,13 +20,18 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.On
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.container,LoginFragment.newInstance())
                 .commit();
+
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        if (currentUser != null) {
+            onLoginSuccessful();
+        }
     }
 
     @Override
     public void onLoginAttempted(String username, String password) {
         //animations can be done here
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, new ProgressFragment())
+                .replace(R.id.container, ProgressFragment.newInstance(username,password))
                 .commit();
     }
 
@@ -47,6 +46,9 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.On
 
     @Override
     public void onLoginFailed() {
-
+        Toast.makeText(this,"Invalid Username or password",Toast.LENGTH_LONG).show();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container,LoginFragment.newInstance())
+                .commit();
     }
 }
