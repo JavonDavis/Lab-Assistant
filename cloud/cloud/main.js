@@ -21,7 +21,7 @@ var comp_1126_lab_4_id ="553";
 
 //creditials to upload grades
 var username="620068192";
-var password="19950923";
+var password="Novajj14";
 
 //job to update 1161 table
 Parse.Cloud.job("update1161", function(request, status)
